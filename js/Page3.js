@@ -14,8 +14,8 @@ import CookieManager from 'react-native-cookies';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const LOGIN_BACK_URL = 'http://qaapi.gentie.163.com/mobile/app_login.html?type=mail&logined=1';
-const LOGIN_CALL_BACK = 'https://qaapi.gentie.163.com/account/login/success';
+const LOGIN_BACK_URL = 'https://api.gentie.163.com/mobile/app_login.html?type=mail&logined=1';
+const LOGIN_CALL_BACK = 'https://api.gentie.163.com/account/login/success';
 const LOAN_INFO = 'http://tools.f2e.netease.com/mongoapi/storage/list?path=developer.163.com/f2e/library/loan';
 
 const formatDate = require('./formatDate');
@@ -40,6 +40,7 @@ export default class Page3 extends Component {
 
 	navChange(navState) {
 		let url = navState.url;
+		console.log(url);
 		if (url === LOGIN_BACK_URL) {
 			this.checkLogin();
 		}
@@ -47,6 +48,7 @@ export default class Page3 extends Component {
 
 	//检查登录状态
 	checkLogin() {
+		console.log(CookieManager);
 		CookieManager.get(LOGIN_BACK_URL, (err, res) => {
 			if (res.NTES_SESS || res.NTES_PASSPORT) {
 				fetch(LOGIN_CALL_BACK)
@@ -162,9 +164,9 @@ export default class Page3 extends Component {
 		} else {
 			return (
 				<WebView
-					source={{uri: 'http://qaapi.gentie.163.com/mobile/app_login.html?type=mail'}}
+					source={{uri: 'https://api.gentie.163.com/mobile/app_login.html?type=mail'}}
 					style={{marginTop: 20}}
-					onNavigationStateChange={this.navChange}
+					onNavigationStateChange={this.navChange.bind(this)}
 				/>
 			);
 		}

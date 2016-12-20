@@ -2,7 +2,6 @@ package com.jieyue;
 
 import com.facebook.react.ReactActivity;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.psykar.cookiemanager.CookieManagerPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 
 public class MainActivity extends ReactActivity {
