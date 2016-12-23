@@ -7,8 +7,8 @@ import {
   Navigator
 } from 'react-native';
 import List from './js/List';
-import Page2 from './js/Page2';
-import Page3 from './js/Page3';
+import Scan from './js/Scan';
+import My from './js/My';
 import Detail from './js/Detail';
 import Borrow from './js/Borrow';
 import BorrowOK from './js/BorrowOK';
@@ -26,10 +26,10 @@ export default class Library extends Component {
     switch (router.name) {
       case 'List':
         return <List navigator={navigator}/>;
-      case 'Page2':
-        return <Page2 navigator={navigator}/>;
-      case 'Page3':
-        return <Page3 navigator={navigator}/>;
+      case 'Scan':
+        return <Scan navigator={navigator}/>;
+      case 'My':
+        return <My navigator={navigator}/>;
       case 'Detail':
         return <Detail navigator={navigator} book={router.params.book}/>;
       case 'Borrow':

@@ -63,13 +63,13 @@ export default class NavBar extends Component {
 						<Text style={[styles.txt1, btnTxtCls[0]]}>图书馆</Text>
 					</View>
 				</TouchableHighlight>
-				<TouchableHighlight onPress={() => {this.changeTab({name: 'Page2'})}}>
+				<TouchableHighlight onPress={() => {this.changeTab({name: 'Scan'})}}>
 					<View style={[styles.btn, btnCls[1]]}>
 						<Icon name="book" style={[styles.txt1, btnTxtCls[1], styles.btnIcon]} />
 						<Text style={[styles.txt1, btnTxtCls[1]]}>借书</Text>
 					</View>
 				</TouchableHighlight>
-				<TouchableHighlight onPress={() => {this.changeTab({name: 'Page3'})}}>
+				<TouchableHighlight onPress={() => {this.changeTab({name: 'My'})}}>
 					<View style={[styles.btn, btnCls[2]]}>
 						<Icon name="user" style={[styles.txt1, btnTxtCls[2], styles.btnIcon]} />
 						<Text style={[styles.txt1, btnTxtCls[2]]}>我</Text>
