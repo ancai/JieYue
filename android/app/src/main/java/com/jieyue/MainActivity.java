@@ -1,6 +1,7 @@
 package com.jieyue;
 
 import com.facebook.react.ReactActivity;
+import com.github.yamill.orientation.OrientationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 

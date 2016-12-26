@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {
 	StyleSheet,
 	ListView,
@@ -7,11 +7,13 @@ import {
 	Text,
 	TouchableOpacity,
 	Dimensions
-} from 'react-native'
+} from 'react-native';
+
+import Detail from './Detail';
+import {serverURL, bookImageURL} from './env';
 
 var { width, height } = Dimensions.get('window');
-import Detail from './Detail'
-var DATA_URL = 'http://tools.f2e.netease.com/mongoapi/storage/list?path=developer.163.com/f2e/library/book&pattern=.';
+var DATA_URL = `${serverURL}/list?path=developer.163.com/f2e/library/book`;
 export default class BookList extends Component {
 	constructor(props) {
 		super(props);
@@ -48,7 +50,7 @@ export default class BookList extends Component {
 	renderBook(book) {
 		return (<TouchableOpacity style={styles.btn} onPress={() => this.pressBook(book)}>
 					<View style={styles.row}>
-						<Image source={{uri: 'http://img10.360buyimg.com/N6/s300x300_' + book.cover}} style = {styles.pic} />
+						<Image source={{uri: bookImageURL + 's300x300_' + book.cover}} style = {styles.pic} />
 					</View>
 				</TouchableOpacity>)
 	}

@@ -6,6 +6,6 @@
 
 'use strict';
 const {AppRegistry} = require('react-native');
-import Library from './Library';
+import Setup from './Setup';
 
-AppRegistry.registerComponent('jieyue', () => Library);
+AppRegistry.registerComponent('jieyue', () => Setup);
