@@ -12,8 +12,6 @@
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
 
-#import "Orientation.h"
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -37,7 +35,7 @@
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-  return [Orientation getOrientation];
+  return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

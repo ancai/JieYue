@@ -9,13 +9,15 @@ import {
 	Image,
 	ListView
 } from 'react-native';
-import NavBar from './NavBar';
-import CookieManager from 'react-native-cookies';
 
+import CookieManager from 'react-native-cookies';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import NavBar from './NavBar';
+import {serverURL} from './env';
+
 const LOGIN_BACK_URL = 'http://qaapi.gentie.163.com/mobile/app_l.html';
-const LOAN_INFO = 'http://tools.f2e.netease.com/mongoapi/storage/list?path=developer.163.com/f2e/library/loan';
+const LOAN_INFO = `${serverURL}/list?path=developer.163.com/f2e/library/loan`;
 
 const formatDate = require('./formatDate');
 

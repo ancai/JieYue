@@ -6,7 +6,6 @@ import {
   View,
   Navigator
 } from 'react-native';
-import Orientation from 'react-native-orientation';
 
 import List from './js/List';
 import Scan from './js/Scan';
@@ -20,10 +19,6 @@ export default class Setup extends Component {
   static defaultProps = {
     title: '图书借阅'
   };
-
-  componentWillMount() {
-    Orientation.lockToPortrait();
-  }
 
   configScene() {
     return Navigator.SceneConfigs.ToTheRight;
