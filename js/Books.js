@@ -66,13 +66,16 @@ export default class Books extends Component {
 			return this.renderLoadingView();
 		}
 
-		return (<ListView
-			initialListSize = {9}
-			dataSource = {this.state.dataSource}
-			renderRow = {this.renderBook.bind(this)}
-			contentContainerStyle = {styles.grid}
-			style={styles.list}
-			/>)
+		return (
+			<ListView
+				initialListSize = {20}
+				dataSource = {this.state.dataSource}
+				renderRow = {this.renderBook.bind(this)}
+				contentContainerStyle = {styles.grid}
+				style={styles.list}
+				removeClippedSubviews={false}
+			/>
+		);
 	}
 }
 

@@ -31,7 +31,7 @@ export default class NavBar extends Component {
 			}
 		});
 		if (flag) {
-			if (route.name === 'List') {
+			if (route.name === 'Home') {
 				navigator.jumpTo(jumpRoute);
 			} else {
 				navigator.replace(route);
