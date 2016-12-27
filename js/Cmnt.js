@@ -6,12 +6,17 @@ import {
 	Text,
 	TextInput
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {
+	serverURL,
+	table
+} from './env';
+import star from './star';
+
 
 export default class Comment extends Component {
 	constructor(props) {
 		super(props);
-		console.log(this.props.bookId);
 		this.state = {
 			score: 0,
 			title: '',
@@ -19,67 +24,24 @@ export default class Comment extends Component {
 		};
 	};
 
-	starIcon(params) {
-		let score = params.score;
-		return (<Icon
-			key={params.key}
-			name={params.name}
-			style={params.style}
-			onPress={() => this.setState({score})}
-		/>);
-	}
-
-	//星评分
-	renderStars(score) {
-		let stars = [];
-		for (let i = 0; i < 5; i++) {
-			stars.push(
-				this.starIcon(i > (score-1) ? {
-					key:('star=' + i),
-					name: 'star-o',
-					style: {fontSize: 20, color: '#999', margin: 10},
-					score: (i+1)
-				} : {
-					key:('star=' + i),
-					name: 'star',
-					style: {fontSize: 20, color: '#fff40c', margin: 10},
-					score: (i+1)
-				})
-			);
-		}
-
-		return (<View style={styles.star}>{stars}</View>);
-	}
-
 	getBookById(bookId, callback) {
-		fetch(`http://tools.f2e.netease.com/mongoapi/storage?path=developer.163.com/f2e/library/book&_id=${bookId}`)
-		.then(response => response.json())
-		.then((rjson) => {
-			console.log(rjson);
+		let url = `${serverURL}?${table.book}&_id=${bookId}`;
+		get(url, (rjson) => {
 			if (rjson.success) {
 				callback(rjson.result);
 			}
-		})
-		.done();
+		});
 	}
 
 	submitData() {
 		let commentId = new Date().getTime(),
-		{score, title, content} = this.state,
-		{bookId} = this.props,
-		{nickname} = global.user;
-		fetch(`http://tools.f2e.netease.com/mongoapi/storage?path=developer.163.com/f2e/library/comments&_id=${commentId}`, {
-			method: 'post',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
+			url = `${serverURL}?${table.comments}&_id=${commentId}`,
+			{score, title, content} = this.state,
+			{bookId} = this.props,
+			{nickname} = global.user;
+		post(url, {
 				nickname, score, title, content, bookId
-			})
-		})
-		.then(response => response.json())
-		.then((rjson) => {
+		}, rjson => {
 			if (rjson.success) {
 				this.getBookById(bookId, function(book) {
 					this.props.navigator.push({
@@ -90,20 +52,29 @@ export default class Comment extends Component {
 					});
 				}.bind(this));
 			}
-		})
-		.done();
+		});
+	}
+
+	pressStar(score) {
+		this.setState({score});
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
 				<View style={[styles.toolBar, styles.splitLine]}>
-					<TouchableOpacity onPress={() => this.props.navigator.pop()}><Text style={styles.toolTxt}>取消</Text></TouchableOpacity>
+					<TouchableOpacity onPress={() => this.props.navigator.pop()}>
+						<Text style={styles.toolTxt}>取消</Text>
+					</TouchableOpacity>
 					<Text style={[styles.toolTxt, styles.toolTitle]}>撰写评论</Text>
-					<TouchableOpacity onPress={this.submitData.bind(this)}><Text style={styles.toolTxt}>发送</Text></TouchableOpacity>
+					<TouchableOpacity onPress={this.submitData.bind(this)}>
+						<Text style={styles.toolTxt}>发送</Text>
+					</TouchableOpacity>
 				</View>
 				<View style={[styles.starBar, styles.splitLine]}>
-					{this.renderStars(this.state.score)}
+					<View style={styles.star}>
+						{star(this.state.score, this.pressStar.bind(this))}
+					</View>
 					<View style={styles.star}>
 						<Text style={styles.starTxt}>轻点星形来评分</Text>
 					</View>

@@ -13,13 +13,16 @@ import {
 import CookieManager from 'react-native-cookies';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import NavBar from './NavBar';
-import {serverURL} from './env';
-
-const LOGIN_BACK_URL = 'http://qaapi.gentie.163.com/mobile/app_l.html';
-const LOAN_INFO = `${serverURL}/list?path=developer.163.com/f2e/library/loan`;
-
-const formatDate = require('./formatDate');
+import Nav from './Nav';
+import {
+	serverURL,
+	bookImageURL,
+	loginURL,
+	defaultPortrait,
+	table
+} from './env';
+import formatDate from './date';
+import get from './data';
 
 export default class My extends Component {
 	constructor(props) {
@@ -41,20 +44,18 @@ export default class My extends Component {
 
 	navChange(navState) {
 		let url = navState.url;
-		console.log(url);
-		if (url === LOGIN_BACK_URL) {
+		if (url === loginURL) {
 			this.checkLogin();
 		}
 	}
 
 	//检查登录状态
 	checkLogin() {
-		CookieManager.get(LOGIN_BACK_URL, (err, res) => {
+		CookieManager.get(loginURL, (err, res) => {
 			if (res.NTES_CMT_USER_INFO) {
 				let user = this.getUserData(res.NTES_CMT_USER_INFO);
 				this.setState({user});
 				global.user = user;
-				console.log(user);
 				if (user) {
 					this.getLoanInfo(user);
 				}
@@ -64,30 +65,23 @@ export default class My extends Component {
 
 	//获得 借阅书籍的 信息
 	getLoanInfo(user) {
-		fetch(LOAN_INFO)
-		.then(response => response.json())
-		.then((rjson) => {
+		get(`${serverURL}/list?${table.loan}`, rjson => {
 			let arry = rjson.result.filter(elem => elem.user === user.username && !elem.state);
 			this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(arry),
 				total: arry.length,
 				loaded: true
 			});
-		})
-		.catch(err => {
-			console.log(err);
-		})
-		.done();
+		});
 	}
 
 	//获得 用户数据
 	getUserData(userCookie) {
 		let userInfo = decodeURIComponent(userCookie).split('|');
-		console.log(userInfo);
 		return {
 			userId: userInfo[0],
 			nickname: userInfo[1],
-			avatar: userInfo[2] || 'https://simg.ws.126.net/e/img5.cache.netease.com/tie/images/yun/photo_default_62.png.39x39.100.jpg',
+			avatar: userInfo[2] || defaultPortrait,
 			username: userInfo[4],
 		};
 	}
@@ -95,27 +89,17 @@ export default class My extends Component {
 	//归还图书
 	backBook(loan) {
 		loan.state = 1;
-		fetch(`http://tools.f2e.netease.com/mongoapi/storage?path=developer.163.com/f2e/library/loan&_id=${loan._id}`, {
-			method: 'post',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(loan)
-		})
-		.then(response => response.json())
-		.then((rjson) => {
+		post(`${serverURL}?${table.loan}&_id=${loan._id}`, loan, rjson => {
 			if (rjson.success) {
 				this.getLoanInfo(global.user);
 			}
-		})
-		.done();
+		});
 	}
 
 	renderRow(loan) {
 		return (
 			<View style={styles.row}>
-				<Image source={{uri: 'http://img10.360buyimg.com/N6/s300x300_' + loan.cover}} style={styles.rowImg}/>
+				<Image source={{uri: bookImageURL + 's300x300_' + loan.cover}} style={styles.rowImg}/>
 				<View style={styles.rowR}>
 					<View style={styles.rItem}>
 						<Text style={styles.rowTxt}>借出时间：{formatDate(loan.time)}</Text>
@@ -140,7 +124,6 @@ export default class My extends Component {
 
 	renderItem(user) {
 		if (user) {
-			console.log('重新绘制页面', user.avatar);
 			return (
 				<View>
 					<View style={styles.personInfo}>
@@ -162,7 +145,7 @@ export default class My extends Component {
 		} else {
 			return (
 				<WebView
-					source={{uri: LOGIN_BACK_URL + '?type=mail'}}
+					source={{uri: loginURL + '?type=mail'}}
 					style={{marginTop: 20}}
 					javaScriptEnabled={true}
 					onNavigationStateChange={this.navChange.bind(this)}
@@ -178,7 +161,7 @@ export default class My extends Component {
 				<View style={styles.whatLeft}>
 					{this.renderItem(user)}
 				</View>
-				<NavBar navBarStatus={navStatus}
+				<Nav navBarStatus={navStatus}
 					navigator={this.props.navigator}
 				/>
 			</View>

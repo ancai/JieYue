@@ -7,15 +7,15 @@ import {
   Navigator
 } from 'react-native';
 
-import List from './js/List';
+import Home from './js/Home';
 import Scan from './js/Scan';
 import My from './js/My';
 import Detail from './js/Detail';
-import Borrow from './js/Borrow';
-import BorrowOK from './js/BorrowOK';
-import Comment from './js/Comment';
+import Loan from './js/Loan';
+import LoanOK from './js/Over';
+import Comment from './js/Cmnt';
 
-export default class Setup extends Component {
+export default class Main extends Component {
   static defaultProps = {
     title: '图书借阅'
   };
@@ -27,25 +27,25 @@ export default class Setup extends Component {
   renderScene(router, navigator) {
     this._navigator = navigator;
     switch (router.name) {
-      case 'List':
-        return <List navigator={navigator}/>;
+      case 'Home':
+        return <Home navigator={navigator}/>;
       case 'Scan':
         return <Scan navigator={navigator}/>;
       case 'My':
         return <My navigator={navigator}/>;
       case 'Detail':
         return <Detail navigator={navigator} book={router.params.book}/>;
-      case 'Borrow':
-        return <Borrow navigator={navigator} bookId={router.params.bookId} issueId={router.params.issueId}/>
-      case 'BorrowOK':
-        return <BorrowOK navigator={navigator} bookTitle={router.bookTitle} />
+      case 'Loan':
+        return <Loan navigator={navigator} bookId={router.params.bookId} issueId={router.params.issueId}/>
+      case 'LoanOK':
+        return <LoanOK navigator={navigator} bookTitle={router.bookTitle} />
       case 'Comment':
         return <Comment navigator={navigator} bookId={router.bookId}/>
     }
   }
   render() {
     return (
-      <Navigator initialRoute={{name: 'List', component: List, index: 0}}
+      <Navigator initialRoute={{name: 'Home', component: Home, index: 0}}
         configScene={this.configScene}
         renderScene={this.renderScene}/>
     );

@@ -6,7 +6,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-export default class BorrowOK extends Component {
+export default class LoanOK extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -20,10 +20,10 @@ export default class BorrowOK extends Component {
 						<Text style={styles.loanTitle}>《{this.props.bookTitle}》</Text>
 					</View>
 					<View style={styles.btns}>
-						<TouchableOpacity onPress={() => {this.props.navigator.replace({name: 'Page3'})}}>
+						<TouchableOpacity onPress={() => {this.props.navigator.replace({name: 'My'})}}>
 							<Text style={styles.btn}>查看详情</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => {this.props.navigator.replace({name: 'Page2'})}}>
+						<TouchableOpacity onPress={() => {this.props.navigator.replace({name: 'Scan'})}}>
 							<Text style={styles.btn}>再借一本</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={() => {this.props.navigator.popToTop()}}>

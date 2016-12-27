@@ -7,10 +7,11 @@ import {
 	Dimensions,
 	TouchableOpacity
 } from 'react-native';
+
 import Camera from 'react-native-camera';
-import NavBar from './NavBar';
-import Borrow from './Borrow';
-var { width, height } = Dimensions.get('window');
+import Nav from './Nav';
+import Loan from './Loan';
+
 export default class Scan extends Component {
 	constructor(props) {
         super(props);
@@ -33,7 +34,7 @@ export default class Scan extends Component {
 				        </View>
 				      </Camera>
 				</View>
-				<NavBar navBarStatus={navStatus}
+				<Nav navBarStatus={navStatus}
 					navigator={this.props.navigator}
 				/>
 			</View>
@@ -59,9 +60,9 @@ export default class Scan extends Component {
 			if (navigator && bookId) {
 				this.loaded = true;
 				navigator.push({
-					name: 'Borrow',
+					name: 'Loan',
 					title: "借书",
-					component: Borrow,
+					component: Loan,
 					params: {bookId, issueId}
 				});
 				return;
@@ -70,6 +71,7 @@ export default class Scan extends Component {
 	}
 }
 
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
 	container: {flex: 1, backgroundColor: '#fff'},
 	whatLeft: {flex: 1, borderTopWidth: 1, borderColor: 'black'},

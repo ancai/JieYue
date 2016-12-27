@@ -4,8 +4,8 @@ import {
 	StyleSheet,
 	Image
 } from 'react-native';
-import NavBar from './NavBar';
-import BookList from './BookList';
+import Nav from './Nav';
+import Books from './Books';
 
 export default class List extends Component {
 	constructor(props) {
@@ -17,9 +17,9 @@ export default class List extends Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.whatLeft}>
-					<BookList navigator={this.props.navigator}/>
+					<Books navigator={this.props.navigator}/>
 				</View>
-				<NavBar navBarStatus={navStatus}
+				<Nav navBarStatus={navStatus}
 					navigator={this.props.navigator}
 				/>
 			</View>

@@ -27,4 +27,4 @@ function formatDate(time, pattern) { //格式化日期时间
     return date.formatDt(pattern);
 }
 
-module.exports = formatDate;
+export default formatDate;

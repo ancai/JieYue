@@ -10,7 +10,15 @@ import {
 	ListView
 } from 'react-native'
 
-const formatDate = require('./formatDate');
+import formatDate from './date';
+import {
+	serverURL,
+	bookImageURL,
+	table
+} from './env';
+import get from './data';
+import star from './star';
+
 export default class Detail extends Component {
 	constructor(props) {
 		super(props);
@@ -20,38 +28,50 @@ export default class Detail extends Component {
 				rowHasChanged: (r1, r2) => r1 !== r2
 			}),
 			loaded: false,
-			total:0
+			total:0,
+			tocH: 0
 		};
 	}
 
 	componentDidMount() {
-		var id = this.props.book._id;
-		var DATA_URL = `http://tools.f2e.netease.com/mongoapi/storage?_id=${id}&path=developer.163.com/f2e/library/toc`;
-		fetch(DATA_URL)
-			.then(response => response.json())
-			.then((rjson) => {
-				var toc = `<!DOCTYPE html>
-							<html lang="en">
-							<head>
-								<meta http-equiv="content-type" content="text/html; charset=utf-8">
-								<title></title>
-							</head>
-							<body>${rjson.result.toc}</body>
-							</html>`;
-				this.setState({toc});
-			})
-			.done();
-		fetch(`http://tools.f2e.netease.com/mongoapi/storage/list?path=developer.163.com/f2e/library/comments`)
-		.then(response => response.json())
-		.then((rjson) => {
+		let id = this.props.book._id;
+		let url = `${serverURL}?_id=${id}&${table.toc}`;
+		get(url, rjson => {
+			var toc =
+			`<!DOCTYPE html>
+				<html lang="en">
+				<head>
+					<meta http-equiv="content-type" content="text/html; charset=utf-8">
+					<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+					<title></title>
+					<script>
+						window.addEventListener('load', function() {
+							var h = document.documentElement.offsetHeight;
+							document.body.style.height = h;
+							document.title = h;
+							window.location.hash = Date.now();
+						});
+					</script>
+				</head>
+				<body>${rjson.result.toc}</body>
+			</html>`;
+			this.setState({toc});
+		});
+		get(`${serverURL}/list?${table.comments}`, rjson => {
 			let arry = rjson.result.filter(item => item.bookId === id);
 			this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(arry),
 				loaded: true,
 				total: arry.length
 			});
-		})
-		.done();
+		});
+	}
+
+	navChange(navState) {
+		let h = Number(navState.title)|| 0;
+		if (h) {
+			this.setState({tocH: h});
+		}
 	}
 
 	renderRow(cmnt) {
@@ -61,7 +81,7 @@ export default class Detail extends Component {
 					<Text style={styles.rowTitle}>{cmnt.title}</Text>
 				</View>
 				<View style = {styles.rowAuthor}>
-					<Text style={styles.authorInfo}>{cmnt.score}</Text>
+					<Text style={styles.authorInfo}>{star(cmnt.score)}</Text>
 					<Text style={styles.authorInfo}>{cmnt.nickname}</Text>
 					<Text style={styles.authorInfo}>{formatDate(parseInt(cmnt._id))}</Text>
 				</View>
@@ -79,17 +99,18 @@ export default class Detail extends Component {
 				<Text>&lt;&lt;</Text>
 			</TouchableOpacity>
 			<View style={styles.head}>
-				<Image source={{uri: 'http://img10.360buyimg.com/N6/s500x500_' + book.cover}} style = {styles.pic} />
+				<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
 				<Text style={styles.title}>{book.title}</Text>
 			</View>
 			<View><Text style={styles.desc}>{book.desc}</Text></View>
-			<WebView style={styles.category}
+			<WebView style={[styles.category, {height: this.state.tocH}]}
 				ref={"webview"}
 				source={{html: this.state.toc}}
 				automaticallyAdjustContentInsets={true}
 				javaScriptEnabled={true}
 				domStorageEnabled={true}
 				decelerationRate="normal"
+				onNavigationStateChange={this.navChange.bind(this)}
 			/>
 			<View style={styles.param}>
 				<Text style={styles.paramKey}>作者</Text>
@@ -111,13 +132,15 @@ export default class Detail extends Component {
 				<Text style={styles.cmntTitle}>评论</Text>
 				<Text style={styles.cmntTotal}>{this.state.total}</Text>
 			</View>
-			<ListView
-				initialListSize={10}
-				dataSource={this.state.dataSource}
-				renderRow={this.renderRow.bind(this)}
-				enableEmptySections={true}
-				style={styles.list}
-			/>
+			<View>
+				<ListView
+					initialListSize={10}
+					dataSource={this.state.dataSource}
+					renderRow={this.renderRow.bind(this)}
+					enableEmptySections={true}
+					style={styles.list}
+				/>
+			</View>
 		</ScrollView>)
 	}
 }
@@ -182,6 +205,8 @@ const styles = StyleSheet.create({
 		height: 30,
 
 	},
+	list: {
+	},
 	cmntBar: {
 		flexDirection: 'row',
 		paddingLeft: 20,
@@ -200,7 +225,6 @@ const styles = StyleSheet.create({
 		marginLeft: 10
 	},
 	row: {
-		flex: 1,
 		paddingLeft: 20,
 		borderBottomWidth: 1,
 		borderBottomColor: '#f1f1f1',
@@ -225,8 +249,5 @@ const styles = StyleSheet.create({
 		color: '#666',
 		fontSize: 14,
 		marginBottom: 10
-	},
-	list: {
-		flex: 1
 	}
 });

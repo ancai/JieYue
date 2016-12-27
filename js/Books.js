@@ -10,11 +10,10 @@ import {
 } from 'react-native';
 
 import Detail from './Detail';
-import {serverURL, bookImageURL} from './env';
+import {serverURL, bookImageURL, table} from './env';
+import get from './data';
 
-var { width, height } = Dimensions.get('window');
-var DATA_URL = `${serverURL}/list?path=developer.163.com/f2e/library/book`;
-export default class BookList extends Component {
+export default class Books extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,24 +25,17 @@ export default class BookList extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchData();
-	}
-
-	fetchData() {
-		fetch(DATA_URL)
-			.then(response => response.json())
-			.then((rjson) => {
-				this.setState({
-					dataSource: this.state.dataSource.cloneWithRows(rjson.result),
-					loaded: true
-				});
-			})
-			.done();
+		get(`${serverURL}/list?${table.book}`, (rjson) => {
+			this.setState({
+				dataSource: this.state.dataSource.cloneWithRows(rjson.result),
+				loaded: true
+			});
+		});
 	}
 
 	renderLoadingView() {
 		return (<View style={styles.loading}>
-			<Text>正在加载图书数据......</Text>
+			<Text style={{color: '#999'}}>正在加载图书数据......</Text>
 		</View>)
 	}
 
@@ -84,6 +76,7 @@ export default class BookList extends Component {
 	}
 }
 
+var { width, height } = Dimensions.get('window');
 var col = width / 3, row = col * 1.5;
 var styles = StyleSheet.create({
 	loading: {

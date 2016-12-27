@@ -6,12 +6,13 @@ import {
 	Text,
 	TouchableHighlight
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Dimension from 'Dimensions';
 
-var Dimension = require("Dimensions");
 var totalWidth = Dimension.get('window').width;
 let navBtnW = totalWidth / 3;
 let navBtnH = navBtnW * 0.5;
+
 export default class NavBar extends Component {
 	constructor(props) {
 		super(props);
@@ -57,7 +58,7 @@ export default class NavBar extends Component {
 		});
 		return (
 			<View style={styles.navRow}>
-				<TouchableHighlight onPress={() => {this.changeTab({name: 'List'})}}>
+				<TouchableHighlight onPress={() => {this.changeTab({name: 'Home'})}}>
 					<View style={[styles.btn, btnCls[0]]}>
 						<Icon name="home" style={[styles.txt1, btnTxtCls[0], styles.btnIcon]} />
 						<Text style={[styles.txt1, btnTxtCls[0]]}>图书馆</Text>
