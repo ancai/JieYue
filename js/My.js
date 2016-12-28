@@ -13,7 +13,6 @@ import {
 import CookieManager from 'react-native-cookies';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Nav from './Nav';
 import {
 	serverURL,
 	bookImageURL,
@@ -23,6 +22,7 @@ import {
 } from './env';
 import formatDate from './date';
 import get from './data';
+import layout from './layout';
 
 export default class My extends Component {
 	constructor(props) {
@@ -157,20 +157,12 @@ export default class My extends Component {
 	render() {
 		let navStatus = [0, 0, 1], user = this.state.user || global.user;
 		return (
-			<View style={styles.container}>
-				<View style={styles.whatLeft}>
-					{this.renderItem(user)}
-				</View>
-				<Nav navBarStatus={navStatus}
-					navigator={this.props.navigator}
-				/>
-			</View>
+			layout(navStatus, this.props.navigator, this.renderItem(user))
 		);
 	}
 }
 const styles = StyleSheet.create({
-	container: {flex: 1, backgroundColor: '#fff'},
-	whatLeft: {flex: 1, borderTopWidth: 1, borderColor: 'black'},
+	bdy: {backgroundColor: '#fff'},
 	personInfo: {
 		justifyContent: 'center',
 		alignItems: 'center',

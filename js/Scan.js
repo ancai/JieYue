@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 import Camera from 'react-native-camera';
-import Nav from './Nav';
 import Loan from './Loan';
+import layout from './layout';
 
 export default class Scan extends Component {
 	constructor(props) {
@@ -21,23 +21,18 @@ export default class Scan extends Component {
     render() {
     	var navStatus = [0, 1, 0];
         return (
-	    	<View style={styles.container}>
-				<View style={styles.whatLeft}>
-					<Camera
-						ref={(cam) => {
-							this.camera = cam;
-						}}
-						onBarCodeRead={this._onBarCodeRead.bind(this)}
-						style={styles.camera}>
-				        <View style={styles.rectangleContainer}>
-				          <View style={styles.rectangle}/>
-				        </View>
-				      </Camera>
-				</View>
-				<Nav navBarStatus={navStatus}
-					navigator={this.props.navigator}
-				/>
-			</View>
+        	layout(navStatus, this.props.navigator,
+				<Camera
+					ref={(cam) => {
+						this.camera = cam;
+					}}
+					onBarCodeRead={this._onBarCodeRead.bind(this)}
+					style={styles.camera}
+				>
+					<View style={styles.rectangleContainer}>
+					  <View style={styles.rectangle}/>
+					</View>
+				</Camera>)
 		);
 	}
 
@@ -73,8 +68,6 @@ export default class Scan extends Component {
 
 const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
-	container: {flex: 1, backgroundColor: '#fff'},
-	whatLeft: {flex: 1, borderTopWidth: 1, borderColor: 'black'},
 	camera: {
 	    width:width,
 	    height: 500,
@@ -96,23 +89,5 @@ const styles = StyleSheet.create({
 	    borderWidth: 2,
 	    borderColor: '#00FF00',
 	    backgroundColor: 'transparent',
-	  },
-
-
-	  cancelButton: {
-	    flexDirection: 'row',
-	    justifyContent: 'center',
-	    backgroundColor: 'white',
-	    borderRadius: 3,
-	    padding: 15,
-	    width: 100,
-	    height: 50,
-	    marginBottom: 10,
-
-	  },
-	  cancelButtonText: {
-	    fontSize: 17,
-	    fontWeight: '500',
-	    color: '#0097CE',
 	  },
 });
