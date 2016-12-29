@@ -104,10 +104,19 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(JIEYUEAPP_RELEASE_STORE_FILE)
+            storePassword JIEYUEAPP_RELEASE_STORE_PASSWORD
+            keyAlias JIEYUEAPP_RELEASE_KEY_ALIAS
+            keyPassword JIEYUEAPP_RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -126,7 +135,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-orientation')
     compile project(':react-native-vector-icons')
     compile project(':react-native-cookies')
     compile project(':react-native-camera')

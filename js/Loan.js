@@ -124,8 +124,8 @@ export default class Loan extends Component {
 						>
 							<Text style={styles.brwBtn}>借书</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.btnWrap}
-							onPress={() => {this.state.navigator.replace({name: 'Scan'})}}
+						<TouchableOpacity
+							onPress={() => {this.state.navigator.push({name: 'Scan'})}}
 						>
 							<Text style={styles.cancelBtn}>取消</Text>
 						</TouchableOpacity>
@@ -160,17 +160,20 @@ const styles = {
 		margin: 5,
 	},
 	btns: {flex: 1,flexDirection: 'row',justifyContent: 'space-around'},
-	brwBtn: {
-		fontSize: 20,
+	btnWrap: {
+		flexDirection:'column',
+		justifyContent:'center',
+		alignItems:'center',
 		width: 80,
-		padding: 10,
-		paddingLeft: 20,
 		height: 40,
-		color: '#fff',
 		backgroundColor: 'rgb(53, 167, 2)',
 		borderColor: '#fff',
 		borderWidth: 1,
 		borderRadius: 5
+	},
+	brwBtn: {
+		fontSize: 20,
+		color: '#fff',
 	},
 	cancelBtn: {height: 40,padding: 10}
 };

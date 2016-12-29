@@ -26,7 +26,7 @@
 		21EA4499E6B54FE7B61B602D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 178EFBFA99BA478B8FC63053 /* Zocial.ttf */; };
 		24DFFB928BE64805ABDA5585 /* libRNCookieManagerIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB29BED9B9A4EA684BB67AE /* libRNCookieManagerIOS.a */; };
 		26139C3329F94BFDB540E612 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8814CEA6DC34F5B8FF2F317 /* Foundation.ttf */; };
-		344C0A5241D64E418BD0922C /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC613A977494B818D289F94 /* libRCTOrientation.a */; };
+		29842BDB1E13D776008BE651 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 29842BDA1E13D776008BE651 /* bundle */; };
 		3A842402E0C141B9B57D9F53 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 633480EDA700493FB621688B /* Entypo.ttf */; };
 		59B75C6B669D4BA58EF2918D /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36A3832F2449411C90E627F9 /* FontAwesome.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -102,13 +102,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
-		};
-		291CDC561E10ED1600A81977 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E380C2151D487DAEA1A6FE /* RCTOrientation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RCTOrientation;
 		};
 		293980241E0401F20012D255 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -220,7 +213,6 @@
 		00E356EE1AD99517003FC87E /* jieyueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jieyueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* jieyueTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jieyueTests.m; sourceTree = "<group>"; };
-		11E380C2151D487DAEA1A6FE /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* jieyue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jieyue.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,8 +225,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		178EFBFA99BA478B8FC63053 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		180CB9E3F41642BBB042A48F /* RNCookieManagerIOS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCookieManagerIOS.xcodeproj; path = "../node_modules/react-native-cookies/RNCookieManagerIOS.xcodeproj"; sourceTree = "<group>"; };
+		29842BDA1E13D776008BE651 /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		36A3832F2449411C90E627F9 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		3CC613A977494B818D289F94 /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOrientation.a; sourceTree = "<group>"; };
 		4637CFFA442B4429A4A8E380 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		482B45E06FEB4A70AA4A5D97 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		4DB29BED9B9A4EA684BB67AE /* libRNCookieManagerIOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCookieManagerIOS.a; sourceTree = "<group>"; };
@@ -279,7 +271,6 @@
 				7A29FAFA1E544CDB9B2F6B37 /* libRCTCamera.a in Frameworks */,
 				24DFFB928BE64805ABDA5585 /* libRNCookieManagerIOS.a in Frameworks */,
 				1A80C30F22B6404D81A96130 /* libRNVectorIcons.a in Frameworks */,
-				344C0A5241D64E418BD0922C /* libRCTOrientation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +357,7 @@
 		13B07FAE1A68108700A75B9A /* jieyue */ = {
 			isa = PBXGroup;
 			children = (
+				29842BDA1E13D776008BE651 /* bundle */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -382,14 +374,6 @@
 			children = (
 				146834041AC3E56700842450 /* libReact.a */,
 				293980431E0401F20012D255 /* libReact-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		291CDC481E10ED1600A81977 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				291CDC571E10ED1600A81977 /* libRCTOrientation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -453,7 +437,6 @@
 				C46AFE2810BB49E2B19B127C /* RCTCamera.xcodeproj */,
 				180CB9E3F41642BBB042A48F /* RNCookieManagerIOS.xcodeproj */,
 				482B45E06FEB4A70AA4A5D97 /* RNVectorIcons.xcodeproj */,
-				11E380C2151D487DAEA1A6FE /* RCTOrientation.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -555,10 +538,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 44E83FSR38;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = X5SUPKM76B;
+						DevelopmentTeam = 44E83FSR38;
 					};
 				};
 			};
@@ -601,10 +585,6 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
-				},
-				{
-					ProductGroup = 291CDC481E10ED1600A81977 /* Products */;
-					ProjectRef = 11E380C2151D487DAEA1A6FE /* RCTOrientation.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -698,13 +678,6 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		291CDC571E10ED1600A81977 /* libRCTOrientation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTOrientation.a;
-			remoteRef = 291CDC561E10ED1600A81977 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		293980251E0401F20012D255 /* libRCTCamera.a */ = {
@@ -823,6 +796,7 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3A842402E0C141B9B57D9F53 /* Entypo.ttf in Resources */,
 				D23830022C7B4E2EB2924649 /* EvilIcons.ttf in Resources */,
+				29842BDB1E13D776008BE651 /* bundle in Resources */,
 				59B75C6B669D4BA58EF2918D /* FontAwesome.ttf in Resources */,
 				26139C3329F94BFDB540E612 /* Foundation.ttf in Resources */,
 				EB968BFBB7C7426896E71D1B /* Ionicons.ttf in Resources */,
@@ -897,6 +871,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 44E83FSR38;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -921,6 +896,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 44E83FSR38;
 				INFOPLIST_FILE = jieyueTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -942,7 +918,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = X5SUPKM76B;
+				DEVELOPMENT_TEAM = 44E83FSR38;
 				INFOPLIST_FILE = jieyue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -950,7 +926,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.first.jieyue;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.third.jieyue;
 				PRODUCT_NAME = jieyue;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -961,7 +937,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = X5SUPKM76B;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 44E83FSR38;
 				INFOPLIST_FILE = jieyue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -969,7 +946,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.first.jieyue;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.third.jieyue;
 				PRODUCT_NAME = jieyue;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1020,7 +997,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1064,6 +1041,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

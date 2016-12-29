@@ -23,16 +23,16 @@ export default class Scan extends Component {
         return (
         	layout(navStatus, this.props.navigator,
 				<Camera
-					ref={(cam) => {
-						this.camera = cam;
-					}}
+					ref={cam => this.camera = cam}
+					aspect={Camera.constants.Aspect.fill}
 					onBarCodeRead={this._onBarCodeRead.bind(this)}
 					style={styles.camera}
 				>
 					<View style={styles.rectangleContainer}>
 					  <View style={styles.rectangle}/>
 					</View>
-				</Camera>)
+				</Camera>,
+				styles.bdy)
 		);
 	}
 
@@ -50,7 +50,6 @@ export default class Scan extends Component {
 				let matchs = result.data.match(reg);
 				bookId = matchs[2];
 				issueId = matchs[3];
-
 			}
 			if (navigator && bookId) {
 				this.loaded = true;
@@ -62,17 +61,22 @@ export default class Scan extends Component {
 				});
 				return;
 			}
+			this.camera = null;
 		}
 	}
 }
 
 const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
+	bdy: {
+		backgroundColor: 'transparent'
+	},
 	camera: {
 	    width:width,
 	    height: 500,
 	    alignItems: 'center',
 	    justifyContent: 'center',
+	    backgroundColor: 'transparent'
 	  },
 
 	  rectangleContainer: {

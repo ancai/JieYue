@@ -16,7 +16,7 @@ export default class List extends Component {
 		var navStatus = [1, 0, 0];
 		return (
 			layout(navStatus, this.props.navigator,
-				<Books navigator={navigator}/>,
+				<Books navigator={this.props.navigator}/>,
 				styles.bdy)
 		);
 	}
