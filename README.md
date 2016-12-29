@@ -2,4 +2,5 @@
 
 代码下载到本地后，调试IOS平台时，在AppDelegate.m文件中将下面的第一行代码取消注释，注释掉第二行代码
 	//jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+
 	jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"bundle/index.ios" withExtension:@"jsbundle"];
