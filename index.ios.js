@@ -4,7 +4,7 @@
  * @flow
  */
 'use strict';
-const {AppRegistry} = require('react-native');
+import {AppRegistry} from 'react-native';
 import Main from './Main';
 
 AppRegistry.registerComponent('jieyue', () => Main);

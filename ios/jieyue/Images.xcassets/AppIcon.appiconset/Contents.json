@@ -33,13 +33,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "book_ios.png",
+      "filename" : "jieyue_120.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "book_ios2.png",
+      "filename" : "jieyue_180.png",
       "scale" : "3x"
     }
   ],
