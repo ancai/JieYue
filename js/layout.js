@@ -20,12 +20,11 @@ export default function layout(navStatus, navigator, childView, bdyStyle = {}) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		padding: 0,
 	},
 	bdy: {
 		flex: 1,
-		borderTopWidth: 1,
-		borderColor: 'black',
 		backgroundColor: '#fff',
 		flexWrap: 'wrap'
 	}

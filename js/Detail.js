@@ -205,8 +205,7 @@ const styles = StyleSheet.create({
 		height: 30,
 
 	},
-	list: {
-	},
+	list: {},
 	cmntBar: {
 		flexDirection: 'row',
 		paddingLeft: 20,

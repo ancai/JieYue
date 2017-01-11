@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 import CookieManager from 'react-native-cookies';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
 	serverURL,
@@ -22,7 +21,8 @@ import {
 } from './env';
 import formatDate from './date';
 import get from './data';
-import layout from './layout';
+import tmpl from './common/tmpl';
+import route from './route';
 
 export default class My extends Component {
 	constructor(props) {
@@ -65,8 +65,8 @@ export default class My extends Component {
 
 	//获得 借阅书籍的 信息
 	getLoanInfo(user) {
-		get(`${serverURL}/list?${table.loan}`, rjson => {
-			let arry = rjson.result.filter(elem => elem.user === user.username && !elem.state);
+		get(`${serverURL}/list?${table.loan}&user=/${user.username}/`, rjson => {
+			let arry = rjson.result.filter(elem => !elem.state);
 			this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(arry),
 				total: arry.length,
@@ -129,11 +129,15 @@ export default class My extends Component {
 					<View style={styles.personInfo}>
 						<Image source={{uri: user.avatar}} style={styles.avatar}/>
 						<Text style={styles.nickname}>{user.nickname}</Text>
+						<TouchableOpacity style={styles.setBtn} onPress={() => this.props.navigator.push(route['Sets'])}>
+							<Text style={styles.set}>设置</Text>
+						</TouchableOpacity>
 					</View>
 					<ListView
 						dataSource = {this.state.dataSource}
 						renderRow = {this.renderRow.bind(this)}
 						style= {styles.list}
+						enableEmptySections={true}
 					/>
 					<View style={styles.total}>
 						<Text style={styles.label}>您总共借阅了</Text>
@@ -157,7 +161,7 @@ export default class My extends Component {
 	render() {
 		let navStatus = [0, 0, 1], user = this.state.user || global.user;
 		return (
-			layout(navStatus, this.props.navigator, this.renderItem(user))
+			tmpl(navStatus, this.props.navigator, this.renderItem(user))
 		);
 	}
 }
@@ -179,6 +183,15 @@ const styles = StyleSheet.create({
 	nickname: {
 		fontSize: 20,
 		marginTop: 20
+	},
+	setBtn: {
+		position: 'absolute',
+		top: 30,
+		right: 15,
+	},
+	set: {
+		fontSize: 17,
+		color: '#999'
 	},
 	list: {height: 475},
 	row: {

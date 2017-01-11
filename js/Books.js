@@ -74,6 +74,7 @@ export default class Books extends Component {
 				contentContainerStyle = {styles.grid}
 				style={styles.list}
 				removeClippedSubviews={false}
+				enableEmptySections={true}
 			/>
 		);
 	}

@@ -10,7 +10,7 @@ import {
 
 import Camera from 'react-native-camera';
 import Loan from './Loan';
-import layout from './layout';
+import tmpl from './common/tmpl';
 
 export default class Scan extends Component {
 	constructor(props) {
@@ -21,7 +21,7 @@ export default class Scan extends Component {
     render() {
     	var navStatus = [0, 1, 0];
         return (
-        	layout(navStatus, this.props.navigator,
+        	tmpl(navStatus, this.props.navigator,
 				<Camera
 					ref={cam => this.camera = cam}
 					aspect={Camera.constants.Aspect.fill}
@@ -31,8 +31,7 @@ export default class Scan extends Component {
 					<View style={styles.rectangleContainer}>
 					  <View style={styles.rectangle}/>
 					</View>
-				</Camera>,
-				styles.bdy)
+				</Camera>)
 		);
 	}
 

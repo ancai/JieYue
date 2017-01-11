@@ -4,14 +4,12 @@ import {
 	StyleSheet,
 	View,
 	Text,
-	TouchableHighlight
+	TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dimension from 'Dimensions';
 
-var totalWidth = Dimension.get('window').width;
-let navBtnW = totalWidth / 3;
-let navBtnH = navBtnW * 0.5;
+import route from './route';
 
 export default class NavBar extends Component {
 	constructor(props) {
@@ -42,40 +40,27 @@ export default class NavBar extends Component {
 	}
 
 	render() {
-		var btnCls = this.props.navBarStatus.map(function(i) {
+		var btnFcs = this.props.navBarStatus.map(function(i) {
 			return i == 0 ? {
-				backgroundColor: '#fff',
+				color: '#999'
 			} : {
-				backgroundColor: 'rgb(53, 167, 2)',
-			};
-		});
-		var btnTxtCls = this.props.navBarStatus.map(function(i) {
-			return i == 0 ? {
-				color: '#666'
-			} : {
-				color: '#fefefe'
+				color: '#1aac19'
 			};
 		});
 		return (
-			<View style={styles.navRow}>
-				<TouchableHighlight onPress={() => {this.changeTab({name: 'Home'})}}>
-					<View style={[styles.btn, btnCls[0]]}>
-						<Icon name="home" style={[styles.txt1, btnTxtCls[0], styles.btnIcon]} />
-						<Text style={[styles.txt1, btnTxtCls[0]]}>图书馆</Text>
-					</View>
-				</TouchableHighlight>
-				<TouchableHighlight onPress={() => {this.changeTab({name: 'Scan'})}}>
-					<View style={[styles.btn, btnCls[1]]}>
-						<Icon name="book" style={[styles.txt1, btnTxtCls[1], styles.btnIcon]} />
-						<Text style={[styles.txt1, btnTxtCls[1]]}>借书</Text>
-					</View>
-				</TouchableHighlight>
-				<TouchableHighlight onPress={() => {this.changeTab({name: 'My'})}}>
-					<View style={[styles.btn, btnCls[2]]}>
-						<Icon name="user" style={[styles.txt1, btnTxtCls[2], styles.btnIcon]} />
-						<Text style={[styles.txt1, btnTxtCls[2]]}>我</Text>
-					</View>
-				</TouchableHighlight>
+			<View style={styles.foot}>
+				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(route['Home'])}>
+					<Icon name="home" style={[styles.btnTxt, btnFcs[0], styles.icon]} />
+					<Text style={[styles.btnTxt, btnFcs[0]]}>{route['Home'].title}</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(route['Scan'])}>
+					<Icon name="book" style={[styles.btnTxt, btnFcs[1], styles.icon]} />
+					<Text style={[styles.btnTxt, btnFcs[1]]}>{route['Scan'].title}</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(route['My'])}>
+					<Icon name="user" style={[styles.btnTxt, btnFcs[2], styles.icon]} />
+					<Text style={[styles.btnTxt, btnFcs[2]]}>{route['My'].title}</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}
@@ -85,9 +70,28 @@ NavBar.propTypes = {
 	navBarStatus: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 };
 
+var btnW = Dimension.get('window').width / 3;
 const styles = StyleSheet.create({
-	navRow: {flexDirection: 'row', position: 'absolute',bottom: 0, left: 0},
-	btn: {width: navBtnW, height: navBtnH, justifyContent: 'center'},
-	txt1: {fontSize: 12, textAlign: 'center', marginTop: 5},
-	btnIcon: {fontSize: 25}
+	foot: {
+		flexDirection: 'row',
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		backgroundColor: '#f8f8f8',
+		borderTopWidth: 1,
+		borderTopColor: '#d1d1d1'
+	},
+	btn: {
+		width: btnW,
+		height: 54,
+		justifyContent: 'center'
+	},
+	btnTxt: {
+		fontSize: 12,
+		textAlign: 'center',
+		marginTop: 3
+	},
+	icon: {
+		fontSize: 25
+	}
 });

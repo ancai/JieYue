@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import Books from './Books';
 import layout from './layout';
+import tmpl from './common/tmpl';
 
 export default class List extends Component {
 	constructor(props) {
@@ -15,15 +16,8 @@ export default class List extends Component {
 	render() {
 		var navStatus = [1, 0, 0];
 		return (
-			layout(navStatus, this.props.navigator,
-				<Books navigator={this.props.navigator}/>,
-				styles.bdy)
+			tmpl(navStatus, this.props.navigator,
+				<Books navigator={this.props.navigator}/>)
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	bdy: {
-		backgroundColor: 'beige'
-	}
-});
