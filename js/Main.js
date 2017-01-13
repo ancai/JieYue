@@ -8,15 +8,16 @@ import {
 	Navigator
 } from 'react-native';
 
-import Home from './js/Home';
-import Scan from './js/Scan';
-import My from './js/My';
-import Detail from './js/Detail';
-import Loan from './js/Loan';
-import LoanOK from './js/Over';
-import Comment from './js/Cmnt';
-import Sets from './js/Sets';
-import route from './js/route';
+import Home from './Home';
+import Scan from './Scan';
+import My from './My';
+import Detail from './Detail';
+import Loan from './Loan';
+import LoanOK from './Over';
+import Comment from './Cmnt';
+import Sets from './Sets';
+import routes from './common/route';
+import history from './common/history';
 
 export default class Main extends Component {
 	static defaultProps = {
@@ -57,11 +58,18 @@ export default class Main extends Component {
 		}
 		return scene;
 	}
+
+	onWillFocus(router) {
+		history(router.name);
+		console.log('Main.js', history().all);
+	}
+
 	render() {
 		return (
-			<Navigator initialRoute={route['Home']}
+			<Navigator initialRoute={routes['Home']}
 				configScene={this.configScene}
-				renderScene={this.renderScene}/>
+				renderScene={this.renderScene}
+				onWillFocus={this.onWillFocus}/>
 		);
 	}
 }

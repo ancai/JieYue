@@ -22,7 +22,7 @@ import {
 import formatDate from './date';
 import get from './data';
 import tmpl from './common/tmpl';
-import route from './route';
+import routes from './common/route';
 
 export default class My extends Component {
 	constructor(props) {
@@ -129,7 +129,7 @@ export default class My extends Component {
 					<View style={styles.personInfo}>
 						<Image source={{uri: user.avatar}} style={styles.avatar}/>
 						<Text style={styles.nickname}>{user.nickname}</Text>
-						<TouchableOpacity style={styles.setBtn} onPress={() => this.props.navigator.push(route['Sets'])}>
+						<TouchableOpacity style={styles.setBtn} onPress={() => this.props.navigator.push(routes['Sets'])}>
 							<Text style={styles.set}>设置</Text>
 						</TouchableOpacity>
 					</View>

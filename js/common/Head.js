@@ -4,20 +4,26 @@ import {
 	StyleSheet,
 	View,
 	Text,
-	TouchableOpacity
+	TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dimension from 'Dimensions';
 
+import routes from './route';
+import history, {back} from './history';
+
 export default class Head extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			hist: history()
+		};
 	}
 
 	renderBackward(currRoute, lastRoute, navigator) {
 		if (currRoute.level !== 1) {
 			return (
-				<TouchableOpacity style={[styles.col, styles.backBtn]} onPress={() => navigator.pop()}>
+				<TouchableOpacity style={[styles.col, styles.backBtn]} onPress={() => back(navigator)}>
 					<Icon name="chevron-left" style={styles.backIcn}/>
 					<Text style={styles.backTxt}>{lastRoute.title}</Text>
 				</TouchableOpacity>
@@ -29,15 +35,12 @@ export default class Head extends Component {
 
 	render() {
 		let {navigator} = this.props,
-			routes = navigator.getCurrentRoutes(),
-			len = routes.length,
-			last = routes[len-2],
-			curr = routes[len-1]
+			hist = this.state.hist;
 		return (
 			<View style={styles.head}>
-				{this.renderBackward(curr, last, navigator)}
+				{this.renderBackward(hist.curr, hist.last, navigator)}
 				<View style={[styles.col, styles.title]}>
-					<Text style={styles.titleTxt}>{curr.title}</Text>
+					<Text style={styles.titleTxt}>{hist.curr.title}</Text>
 				</View>
 				<View style={[styles.col, styles.menu]}>
 					<Text> </Text>

@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dimension from 'Dimensions';
 
-import route from '../route';
+import routes from '../common/route';
 
 export default class Foot extends Component {
 	constructor(props) {
@@ -29,11 +29,11 @@ export default class Foot extends Component {
 			}
 		});
 		if (flag) {
-			if (route.name === 'Home') {
+			// if (route.name === 'Home') {
 				navigator.jumpTo(jumpRoute);
-			} else {
-				navigator.replace(route);
-			}
+			// } else {
+			// 	navigator.replace(route);
+			// }
 		} else {
 			navigator.push(route);
 		}
@@ -49,17 +49,17 @@ export default class Foot extends Component {
 		});
 		return (
 			<View style={styles.foot}>
-				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(route['Home'])}>
+				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(routes['Home'])}>
 					<Icon name="home" style={[styles.btnTxt, btnFcs[0], styles.icon]} />
-					<Text style={[styles.btnTxt, btnFcs[0]]}>{route['Home'].title}</Text>
+					<Text style={[styles.btnTxt, btnFcs[0]]}>{routes['Home'].title}</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(route['Scan'])}>
+				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(routes['Scan'])}>
 					<Icon name="book" style={[styles.btnTxt, btnFcs[1], styles.icon]} />
-					<Text style={[styles.btnTxt, btnFcs[1]]}>{route['Scan'].title}</Text>
+					<Text style={[styles.btnTxt, btnFcs[1]]}>{routes['Scan'].title}</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(route['My'])}>
+				<TouchableOpacity style={styles.btn} onPress={() => this.changeTab(routes['My'])}>
 					<Icon name="user" style={[styles.btnTxt, btnFcs[2], styles.icon]} />
-					<Text style={[styles.btnTxt, btnFcs[2]]}>{route['My'].title}</Text>
+					<Text style={[styles.btnTxt, btnFcs[2]]}>{routes['My'].title}</Text>
 				</TouchableOpacity>
 			</View>
 		);

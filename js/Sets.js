@@ -6,10 +6,8 @@ import {
 	Text,
 	TouchableOpacity
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Octicons';
 
 import Books from './Books';
-import layout from './layout';
 import Head from './common/Head';
 
 export default class Sets extends Component {

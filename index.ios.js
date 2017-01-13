@@ -5,6 +5,6 @@
  */
 'use strict';
 import {AppRegistry} from 'react-native';
-import Main from './Main';
+import app from './app';
 
-AppRegistry.registerComponent('jieyue', () => Main);
+AppRegistry.registerComponent('jieyue', app);

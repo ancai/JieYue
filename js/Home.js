@@ -5,7 +5,6 @@ import {
 	Image
 } from 'react-native';
 import Books from './Books';
-import layout from './layout';
 import tmpl from './common/tmpl';
 
 export default class List extends Component {
