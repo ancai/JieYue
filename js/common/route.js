@@ -4,17 +4,20 @@ const ROUTE_STACK = {
 	'Home': {
 		name: 'Home',
 		title: '图书馆',
-		level: 1
+		level: 1,
+		navState: [1, 0, 0]
 	},
 	'Scan': {
 		name: 'Scan',
 		title: '借书',
-		level: 1
+		level: 1,
+		navState: [0, 1, 0]
 	},
 	'My': {
 		name: 'My',
 		title: '我',
-		level: 1
+		level: 1,
+		navState: [0, 0, 1]
 	},
 	'Detail': {
 		name: 'Detail',

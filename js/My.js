@@ -7,7 +7,8 @@ import {
 	TouchableOpacity,
 	WebView,
 	Image,
-	ListView
+	ListView,
+	DeviceEventEmitter
 } from 'react-native';
 
 import CookieManager from 'react-native-cookies';
@@ -18,17 +19,16 @@ import {
 	loginURL,
 	defaultPortrait,
 	table
-} from './env';
-import formatDate from './date';
-import get from './data';
-import tmpl from './common/tmpl';
+} from './common/env';
+import formatDate from './common/date';
+import get from './common/data';
 import routes from './common/route';
 
 export default class My extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: null,
+			user: global.user,
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (r1, r2) => r1 !== r2
 			}),
@@ -40,6 +40,16 @@ export default class My extends Component {
 
 	componentWillMount() {
 		this.checkLogin();
+	}
+
+	componentDidMount() {
+		this.subscription = DeviceEventEmitter.addListener('logout', () => {
+			this.state.user = null;
+		});
+	}
+
+	componentWillUnmount() {
+		this.subscription.remove();
 	}
 
 	navChange(navState) {
@@ -161,7 +171,7 @@ export default class My extends Component {
 	render() {
 		let navStatus = [0, 0, 1], user = this.state.user || global.user;
 		return (
-			tmpl(navStatus, this.props.navigator, this.renderItem(user))
+			this.renderItem(user)
 		);
 	}
 }

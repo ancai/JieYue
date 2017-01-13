@@ -10,14 +10,15 @@ import {
 	ListView
 } from 'react-native'
 
-import formatDate from './date';
+import formatDate from './common/date';
 import {
 	serverURL,
 	bookImageURL,
 	table
-} from './env';
-import get from './data';
-import star from './star';
+} from './common/env';
+import get from './common/data';
+import star from './common/star';
+import Head from './common/Head';
 
 export default class Detail extends Component {
 	constructor(props) {
@@ -94,54 +95,52 @@ export default class Detail extends Component {
 
 	render() {
 		let {book, navigator} = this.props;
-		return (<ScrollView style={styles.container}>
-			<TouchableOpacity onPress={() => navigator.pop()} style={styles.backBtn}>
-				<Text>&lt;&lt;</Text>
-			</TouchableOpacity>
-			<View style={styles.head}>
-				<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
-				<Text style={styles.title}>{book.title}</Text>
-			</View>
-			<View><Text style={styles.desc}>{book.desc}</Text></View>
-			<WebView style={[styles.category, {height: this.state.tocH}]}
-				ref={"webview"}
-				source={{html: this.state.toc}}
-				automaticallyAdjustContentInsets={true}
-				javaScriptEnabled={true}
-				domStorageEnabled={true}
-				decelerationRate="normal"
-				onNavigationStateChange={this.navChange.bind(this)}
-			/>
-			<View style={styles.param}>
-				<Text style={styles.paramKey}>作者</Text>
-				<Text style={styles.paramVal}>{book.author}</Text>
-			</View>
-			<View  style={styles.param}>
-				<Text style={styles.paramKey}>分类</Text>
-				<Text style={styles.paramVal}>{book.category}</Text>
-			</View>
-			<View  style={styles.param}>
-				<Text style={styles.paramKey}>年份</Text>
-				<Text style={styles.paramVal}>{book.year}</Text>
-			</View>
-			<View  style={styles.param}>
-				<Text style={styles.paramKey}>ISBN</Text>
-				<Text style={styles.paramVal}>{book._id}</Text>
-			</View>
-			<View style={styles.cmntBar}>
-				<Text style={styles.cmntTitle}>评论</Text>
-				<Text style={styles.cmntTotal}>{this.state.total}</Text>
-			</View>
-			<View>
-				<ListView
-					initialListSize={10}
-					dataSource={this.state.dataSource}
-					renderRow={this.renderRow.bind(this)}
-					enableEmptySections={true}
-					style={styles.list}
+		return (
+			<ScrollView style={styles.container}>
+				<View style={styles.head}>
+					<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
+					<Text style={styles.title}>{book.title}</Text>
+				</View>
+				<View><Text style={styles.desc}>{book.desc}</Text></View>
+				<WebView style={[styles.category, {height: this.state.tocH}]}
+					ref={"webview"}
+					source={{html: this.state.toc}}
+					automaticallyAdjustContentInsets={true}
+					javaScriptEnabled={true}
+					domStorageEnabled={true}
+					decelerationRate="normal"
+					onNavigationStateChange={this.navChange.bind(this)}
 				/>
-			</View>
-		</ScrollView>)
+				<View style={styles.param}>
+					<Text style={styles.paramKey}>作者</Text>
+					<Text style={styles.paramVal}>{book.author}</Text>
+				</View>
+				<View  style={styles.param}>
+					<Text style={styles.paramKey}>分类</Text>
+					<Text style={styles.paramVal}>{book.category}</Text>
+				</View>
+				<View  style={styles.param}>
+					<Text style={styles.paramKey}>年份</Text>
+					<Text style={styles.paramVal}>{book.year}</Text>
+				</View>
+				<View  style={styles.param}>
+					<Text style={styles.paramKey}>ISBN</Text>
+					<Text style={styles.paramVal}>{book._id}</Text>
+				</View>
+				<View style={styles.cmntBar}>
+					<Text style={styles.cmntTitle}>评论</Text>
+					<Text style={styles.cmntTotal}>{this.state.total}</Text>
+				</View>
+				<View>
+					<ListView
+						initialListSize={10}
+						dataSource={this.state.dataSource}
+						renderRow={this.renderRow.bind(this)}
+						enableEmptySections={true}
+						style={styles.list}
+					/>
+				</View>
+			</ScrollView>)
 	}
 }
 

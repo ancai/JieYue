@@ -10,8 +10,8 @@ import {
 import {
 	serverURL,
 	table
-} from './env';
-import star from './star';
+} from './common/env';
+import star from './common/star';
 
 
 export default class Comment extends Component {

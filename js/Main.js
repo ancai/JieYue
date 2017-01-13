@@ -8,7 +8,8 @@ import {
 	Navigator
 } from 'react-native';
 
-import Home from './Home';
+import tmpl from './common/tmpl';
+import Books from './Books';
 import Scan from './Scan';
 import My from './My';
 import Detail from './Detail';
@@ -32,7 +33,7 @@ export default class Main extends Component {
 		let scene;
 		switch (router.name) {
 		case 'Home':
-			scene = <Home navigator={navigator}/>;
+			scene = <Books navigator={navigator}/>;
 			break;
 		case 'Scan':
 			scene = <Scan navigator={navigator}/>;
@@ -41,7 +42,7 @@ export default class Main extends Component {
 			scene = <My navigator={navigator}/>;
 			break;
 		case 'Detail':
-			scene = <Detail navigator={navigator} book={router.params.book}/>;
+			scene = <Detail navigator={navigator} book={router.book}/>;
 			break;
 		case 'Loan':
 			scene = <Loan navigator={navigator} bookId={router.params.bookId} issueId={router.params.issueId}/>;
@@ -56,12 +57,11 @@ export default class Main extends Component {
 			scene = <Sets navigator={navigator} />;
 			break;
 		}
-		return scene;
+		return tmpl(navigator, scene, router.navState);
 	}
 
 	onWillFocus(router) {
 		history(router.name);
-		console.log('Main.js', history().all);
 	}
 
 	render() {

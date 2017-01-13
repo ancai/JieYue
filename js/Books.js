@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 
 import Detail from './Detail';
-import {serverURL, bookImageURL, table} from './env';
-import get from './data';
+import {serverURL, bookImageURL, table} from './common/env';
+import get from './common/data';
+import routes from './common/route';
 
 export default class Books extends Component {
 	constructor(props) {
@@ -40,25 +41,17 @@ export default class Books extends Component {
 	}
 
 	renderBook(book) {
-		return (<TouchableOpacity style={styles.btn} onPress={() => this.pressBook(book)}>
+		return (<TouchableOpacity style={styles.btn} onPress={() => this.showDetail(book)}>
 					<View style={styles.row}>
 						<Image source={{uri: bookImageURL + 's300x300_' + book.cover}} style = {styles.pic} />
 					</View>
 				</TouchableOpacity>)
 	}
 
-	pressBook(book) {
-		const { navigator } = this.props;
-		if (navigator) {
-			navigator.push({
-				name: 'Detail',
-				title: "图书详情",
-				component: Detail,
-				params: {
-					book: book
-				}
-			});
-		}
+	showDetail(book) {
+		this.props.navigator.push(
+			Object.assign(routes['Detail'], {book})
+		);
 	}
 
 	render() {
@@ -90,7 +83,6 @@ var styles = StyleSheet.create({
 	},
 	list: {
 		flex: 1,
-		marginTop: 20,
 	},
 	grid: {
 		flexDirection: 'row',

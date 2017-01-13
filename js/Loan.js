@@ -14,8 +14,8 @@ import {
 	loginURL,
 	bookImageURL,
 	table
-} from './env';
-import get, {post} from './data';
+} from './common/env';
+import get, {post} from './common/data';
 
 
 export default class Loan extends Component {
