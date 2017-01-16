@@ -64,7 +64,7 @@ export default class My extends Component {
 		CookieManager.get(loginURL, (err, res) => {
 			if (res.NTES_CMT_USER_INFO) {
 				let user = this.getUserData(res.NTES_CMT_USER_INFO);
-				this.setState({user});
+				this.state.user = user;
 				global.user = user;
 				if (user) {
 					this.getLoanInfo(user);
