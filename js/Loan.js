@@ -1,117 +1,141 @@
 import React, {Component} from 'react';
 import {
 	AppRegistry,
-	StyleSheet,
 	View,
 	Text,
 	TouchableOpacity,
 	Image
 } from 'react-native';
-import CookieManager from 'react-native-cookies';
-
 import {
-	serverURL,
-	loginURL,
 	bookImageURL,
-	table
 } from './common/env';
 import get, {post} from './common/data';
-
+import routes from './common/route';
+import back from './common/history';
+import auth from './common/auth';
+import uuid from './common/uuid';
+import decode from './common/base64';
+import store from './service/store';
+import Login from './Login';
 
 export default class Loan extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bookId: props.bookId,
-			issueId: props.issueId,
-			loaded: false
+			loaded: false,
+			loanInfo: null
 		};
-		this.state = props;
-		this.loaded = false;
 	}
 
 	componentWillMount() {
-		let url = `${serverURL}?_id=${this.state.bookId}&path=developer.163.com/f2e/library/book&pattern=.`;
-		get(url, rjson => {
-			let book = rjson.result;
+		let {
+			bookId, issueId
+		} = this.props;
+		store.getBook(bookId, book => {
 			this.setState({
 				loaded: true,
 				book: book
 			});
 		});
+		store.getLoan(bookId, issueId, '0', arry => {
+			if (arry.length > 0) {
+				let loanInfo = arry[0];
+				this.setState({loanInfo});
+			}
+		});
+		auth(user => this.setState({user}));
 	}
 
+	//登录通知
+	onLogin(user) {
+		this.setState({user});
+		this.setState({toLgn: false});
+	}
 
 	doLoan(book) {
-		if (global.user) {
-			let loanId = book._id + '-' + this.state.issueId,
-				url = `${serverURL}?${table.issue}&_id=${book._id}`;
-			//查询副本表
-			get(url, rjson => {
-				let issue, issueList, url;
-				//判断 是否可借阅
-				if (rjson.success
-					&& (issueList = rjson.result.list)
-					&& (issue = rjson.result.list[this.state.issueId-1])) {
-					//向 借阅表 load 插入一条记录
-					url = `${serverURL}?${table.loan}&_id=${loanId}`;
-					console.log(url);
-					post(url, {
-						user: global.user.username,
-						time: (new Date().getTime()),
-						title: book.title,
-						cover: book.cover
-					}, rjson => {
-						if (rjson.success) {
-							//将副本表的状态修改为 不可借阅
-							issueList[this.state.issueId-1] = {load: loanId, status: 'off'};
-							url = `${serverURL}?${table.issue}&_id=${book._id}`;
-							post(url, {list: issueList}, rjson => {
-								if (rjson.success) {
-									this.state.navigator.push({name: 'LoanOK', bookTitle: book.title});
-								}
-							});
-						}
-					});
-				}
-			});
-		} else {
-			this.checkLogin(book);
-		}
-	}
-
-	//检查登录状态
-	checkLogin(book) {
-		CookieManager.get(loginURL, (err, res) => {
-			if (res.NTES_SESS || res.NTES_PASSPORT) {
-				get(loginURL, () => {
-					CookieManager.get(loginURL, (err, res) => {
-						if (res.NTES_CMT_USER_INFO) {
-							global.user = this.getUserData(res.NTES_CMT_USER_INFO);
-							this.doLoan(book);
-						} else {
-							this.state.navigator.replace({name: 'My'});
-						}
-					});
+		let issueId = this.props.issueId,
+			loanId = uuid();
+		//查询副本表
+		store.getIssues(book._id, issueList => {
+			let issue, url;
+			//判断 是否可借阅
+			if (issueList
+				&& (issue = issueList[issueId-1]) ) {
+				//将副本表的状态修改为 不可借阅
+				issueList[issueId-1] = {load: loanId, status: 'off'};
+				store.updateIssues(book._id, issueList);
+				//向 借阅表 load 插入一条记录
+				store.saveLoan({
+					_id: loanId,
+					user: global.user.username,
+					time: (new Date().getTime()).toString(),
+					bookId: book._id,
+					issueId: issueId,
+					title: book.title,
+					cover: book.cover,
+					isBack: '0'
+				}, () => {
+					this.props.navigator.push(
+						Object.assign(routes['LoanOK'], {bookTitle: book.title})
+					);
 				});
 			}
 		});
 	}
 
-	//获得 用户数据
-	getUserData(userCookie) {
-		let userInfo = decodeURIComponent(userCookie).split('|');
-		return {
-			userId: userInfo[0],
-			nickname: userInfo[1],
-			avatar: userInfo[2],
-			username: userInfo[4],
-		};
+	renderBtn(book) {
+		if (!this.state.loanInfo && this.state.user) {
+			return (
+				<TouchableOpacity style={styles.btnWrap} onPress={() => this.doLoan(book)}>
+					<Text style={styles.brwBtn}>借书</Text>
+				</TouchableOpacity>
+			);
+		} else {
+			return (
+				<View style={[styles.btnWrap, styles.btnDisable]}>
+					<Text style={styles.brwBtn}>借书</Text>
+				</View>
+			);
+		}
+	}
+
+	showWarnTip() {
+		if (this.state.loanInfo) {
+			let user = decode(this.state.loanInfo.user);
+			return (
+				<View style={styles.center}>
+					<Text style={styles.tipTxt}>
+						已经被{user}借走了，换本书扫码试试吧
+					</Text>
+				</View>
+			);
+		}
+		if (!this.state.user) {
+			return (
+				<View style={[styles.center, {flexDirection: 'row'}]}>
+					<Text style={styles.tipTxt}>
+						您好像还没登录哦
+					</Text>
+					<TouchableOpacity onPress={() => {this.setState({toLgn: true})}}>
+						<Text style={styles.toLgn}>
+							登录体验
+						</Text>
+					</TouchableOpacity>
+				</View>
+			);
+		}
 	}
 
 	render() {
+		if (this.state.toLgn) {
+			return (
+				<Login onLogin={this.onLogin.bind(this)}/>
+			);
+
+		}
 		if (this.state.loaded) {
-			let book = this.state.book;
+			let book = this.state.book,
+				disabled = this.state.loanInfo ? {} : {};
 			return (
 				<View style={styles.container}>
 					<View style={styles.head}>
@@ -119,33 +143,34 @@ export default class Loan extends Component {
 					</View>
 					<View style={styles.titleWrap}><Text style={styles.title}>{book.title}</Text></View>
 					<View style={styles.btns}>
-						<TouchableOpacity style={styles.btnWrap}
-							onPress={() => this.doLoan(book)}
-						>
-							<Text style={styles.brwBtn}>借书</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => {this.state.navigator.push({name: 'Scan'})}}
-						>
+						{this.renderBtn(book)}
+						<TouchableOpacity onPress={() => {this.props.navigator.popToRoute(routes['Borrow'])}}>
 							<Text style={styles.cancelBtn}>取消</Text>
 						</TouchableOpacity>
 					</View>
+					{this.showWarnTip()}
 				</View>
 			);
 		} else {
-			return <View style={styles.container}><Text>载入数据中。。。</Text></View>
+			return (
+				<View style={[styles.container, styles.center]}>
+					<Text>载入数据中。。。</Text>
+				</View>
+			);
 		}
 	};
 }
 const styles = {
 	container: {flex: 1, paddingTop: 50},
-	head: {
+	center: {
 		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	head: {
 		alignItems: 'center',
 		flexWrap: 'wrap'
 	},
 	titleWrap: {
-		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
@@ -159,7 +184,11 @@ const styles = {
 		height: 400,
 		margin: 5,
 	},
-	btns: {flex: 1,flexDirection: 'row',justifyContent: 'space-around'},
+	btns: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		height: 50
+	},
 	btnWrap: {
 		flexDirection:'column',
 		justifyContent:'center',
@@ -171,9 +200,24 @@ const styles = {
 		borderWidth: 1,
 		borderRadius: 5
 	},
+	btnDisable: {backgroundColor: 'gray'},
 	brwBtn: {
 		fontSize: 20,
 		color: '#fff',
 	},
-	cancelBtn: {height: 40,padding: 10}
+	cancelBtn: {height: 40,padding: 10},
+	tipTxt: {
+		fontSize: 16,
+		color: '#ec4c4c',
+		padding: 15
+	},
+	toLgn: {
+		color: 'blue',
+		textDecorationLine: 'underline',
+		fontSize: 18,
+	},
+	warnIcn: {
+		fontSize: 18,
+		marginRight: 15
+	}
 };

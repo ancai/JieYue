@@ -10,9 +10,10 @@ import {
 
 import tmpl from './common/tmpl';
 import Books from './Books';
-import Scan from './Scan';
+import Borrow from './Borrow';
 import My from './My';
 import Detail from './Detail';
+import Scan from './Scan';
 import Loan from './Loan';
 import LoanOK from './Over';
 import Comment from './Cmnt';
@@ -35,14 +36,17 @@ export default class Main extends Component {
 		case 'Home':
 			scene = <Books navigator={navigator}/>;
 			break;
-		case 'Scan':
-			scene = <Scan navigator={navigator}/>;
+		case 'Borrow':
+			scene = <Borrow navigator={navigator}/>;
 			break;
 		case 'My':
 			scene = <My navigator={navigator}/>;
 			break;
 		case 'Detail':
 			scene = <Detail navigator={navigator} book={router.book}/>;
+			break;
+		case 'Scan':
+			scene = <Scan navigator={navigator}/>;
 			break;
 		case 'Loan':
 			scene = <Loan navigator={navigator} bookId={router.params.bookId} issueId={router.params.issueId}/>;

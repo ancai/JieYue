@@ -7,7 +7,7 @@ const SERVER_URL = 'http://tools.f2e.netease.com/mongoapi/storage';
 const BOOK_IMAGE_URL = 'http://img10.360buyimg.com/N6/';
 
 //登录页面地址
-const LOGIN_URL = 'http://qa.developer.163.com/tie/yun/sdk_dev/mobile/app_l.html?type=mail';
+const LOGIN_URL = 'http://qa.developer.163.com/products/jieyue/app_l.html';
 
 //默认头像地址
 const DEFAULT_PORTRAIT = 'https://simg.ws.126.net/e/img5.cache.netease.com/tie/images/yun/photo_default_62.png.39x39.100.jpg';

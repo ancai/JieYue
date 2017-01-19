@@ -12,10 +12,22 @@ import Dimension from 'Dimensions';
 import CookieManager from 'react-native-cookies';
 
 import {back} from './common/history';
+import auth from './common/auth';
 
 export default class Sets extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			user: global.user
+		};
+	}
+
+	componentWillMount() {
+		auth(user => {
+			if (user) {
+				this.setState(user);
+			}
+		});
 	}
 
 	logout() {
@@ -25,6 +37,23 @@ export default class Sets extends Component {
 			DeviceEventEmitter.emit('logout', global.user);
 		});
 	}
+
+	renderByUser(user) {
+		if (user) {
+			return (
+				<TouchableOpacity style={styles.exit} onPress={this.logout.bind(this)}>
+					<Text style={styles.exitTxt}>退出登录</Text>
+				</TouchableOpacity>
+			);
+		} else {
+			return (
+				<TouchableOpacity style={styles.exit} onPress={() => back(this.props.navigator)}>
+					<Text style={styles.loginTxt}>去登录</Text>
+				</TouchableOpacity>
+			);
+		}
+	}
+
 	render() {
 		return (
 			<View style={styles.wrap}>
@@ -32,9 +61,7 @@ export default class Sets extends Component {
 					<Image style={styles.logo} source={require('./img/jieyue_120.png')} />
 					<Text style={styles.vname}>图书借阅V1.3.1</Text>
 				</View>
-				<TouchableOpacity style={styles.exit} onPress={this.logout.bind(this)}>
-					<Text style={styles.exitTxt}>退出登录</Text>
-				</TouchableOpacity>
+				{this.renderByUser(this.state.user)}
 				<View style={styles.rights}>
 					<Text style={styles.rightsTxt}>Copyright© All Rights Reserved️</Text>
 				</View>
@@ -77,6 +104,10 @@ const styles = StyleSheet.create({
 	exitTxt: {
 		fontSize: 16,
 		color: '#ec4c4c'
+	},
+	loginTxt: {
+		fontSize: 16,
+		color: '#666'
 	},
 	rights: {
 		position: 'absolute',

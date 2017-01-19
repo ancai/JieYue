@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-	StyleSheet,
 	ListView,
 	View,
 	Image,
@@ -36,7 +35,7 @@ export default class Books extends Component {
 
 	renderLoadingView() {
 		return (<View style={styles.loading}>
-			<Text style={{color: '#999'}}>正在加载图书数据......</Text>
+			<Text style={styles.loadTxt}>正在加载图书数据......</Text>
 		</View>)
 	}
 
@@ -75,14 +74,20 @@ export default class Books extends Component {
 
 var { width, height } = Dimensions.get('window');
 var col = width / 3, row = col * 1.5;
-var styles = StyleSheet.create({
+var styles = {
 	loading: {
 		flex:1,
 		justifyContent: "center",
-		alignItems: "center"
+		alignItems: "center",
+		backgroundColor: '#e3ba8c'
+	},
+	loadTxt: {
+		fontSize: 20,
+		color: '#eee'
 	},
 	list: {
 		flex: 1,
+		backgroundColor: '#e3ba8c'
 	},
 	grid: {
 		flexDirection: 'row',
@@ -103,14 +108,6 @@ var styles = StyleSheet.create({
 		height: row - 20,
 		margin: 10,
 		flex:1,
-		borderWidth: 1,
 		borderRadius: 5
 	}
-});
-
-
-
-
-
-
-
+};

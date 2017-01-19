@@ -6,9 +6,21 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
+import routes, {isBusy} from './common/route';
+
 export default class LoanOK extends Component {
 	constructor(props) {
 		super(props);
+	}
+
+	showDetail() {
+		let navigator = this.props.navigator,
+			route = routes['My'];
+		if (isBusy(navigator, route)) {
+			navigator.jumpTo(route);
+		} else {
+			navigator.push(route);
+		}
 	}
 
 	render() {
@@ -20,10 +32,10 @@ export default class LoanOK extends Component {
 						<Text style={styles.loanTitle}>《{this.props.bookTitle}》</Text>
 					</View>
 					<View style={styles.btns}>
-						<TouchableOpacity onPress={() => {this.props.navigator.replace({name: 'My'})}}>
+						<TouchableOpacity onPress={this.showDetail.bind(this)}>
 							<Text style={styles.btn}>查看详情</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => {this.props.navigator.replace({name: 'Scan'})}}>
+						<TouchableOpacity onPress={() => {this.props.navigator.popToRoute(routes['Borrow'])}}>
 							<Text style={styles.btn}>再借一本</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={() => {this.props.navigator.popToTop()}}>

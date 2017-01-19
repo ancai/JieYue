@@ -3,6 +3,7 @@
 //格式化日期
 function formatDate(time, pattern) { //格式化日期时间
     var pattern = pattern || 'yyyy-MM-dd',//"yyyy-MM-dd hh:mm:ss",
+        time = typeof time === 'string' ? parseInt(time) : time,
         date = new Date(time);
     Date.prototype.formatDt = Date.prototype.formatDt || function(format) {
         var o = {

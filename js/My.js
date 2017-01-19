@@ -2,27 +2,21 @@ import React, {Component} from 'react';
 import {
 	View,
 	Text,
-	StyleSheet,
-	TextInput,
 	TouchableOpacity,
-	WebView,
 	Image,
 	ListView,
 	DeviceEventEmitter
 } from 'react-native';
 
-import CookieManager from 'react-native-cookies';
-
 import {
-	serverURL,
-	bookImageURL,
-	loginURL,
-	defaultPortrait,
-	table
+	bookImageURL
 } from './common/env';
 import formatDate from './common/date';
-import get from './common/data';
+import get, {post} from './common/data';
 import routes from './common/route';
+import auth from './common/auth';
+import Login from './Login';
+import store from './service/store';
 
 export default class My extends Component {
 	constructor(props) {
@@ -39,7 +33,12 @@ export default class My extends Component {
 	}
 
 	componentWillMount() {
-		this.checkLogin();
+		auth(user => {
+			if (user) {
+				this.setState(user);
+				this.getLoanInfo(user);
+			}
+		});
 	}
 
 	componentDidMount() {
@@ -52,57 +51,28 @@ export default class My extends Component {
 		this.subscription.remove();
 	}
 
-	navChange(navState) {
-		let url = navState.url;
-		if (url === loginURL) {
-			this.checkLogin();
-		}
+	onLogin(user) {
+		this.setState(user);
 	}
 
-	//检查登录状态
-	checkLogin() {
-		CookieManager.get(loginURL, (err, res) => {
-			if (res.NTES_CMT_USER_INFO) {
-				let user = this.getUserData(res.NTES_CMT_USER_INFO);
-				this.state.user = user;
-				global.user = user;
-				if (user) {
-					this.getLoanInfo(user);
-				}
-			}
-		});
-	}
-
-	//获得 借阅书籍的 信息
+	//查询 (未归还的)借阅书籍的 信息
 	getLoanInfo(user) {
-		get(`${serverURL}/list?${table.loan}&user=/${user.username}/`, rjson => {
-			let arry = rjson.result.filter(elem => !elem.state);
-			this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(arry),
-				total: arry.length,
-				loaded: true
+		if (user) {
+			store.getLoanByUser(user, '0', arry => {
+				this.setState({
+					dataSource: this.state.dataSource.cloneWithRows(arry),
+					total: arry.length,
+					loaded: true
+				});
 			});
-		});
-	}
-
-	//获得 用户数据
-	getUserData(userCookie) {
-		let userInfo = decodeURIComponent(userCookie).split('|');
-		return {
-			userId: userInfo[0],
-			nickname: userInfo[1],
-			avatar: userInfo[2] || defaultPortrait,
-			username: userInfo[4],
-		};
+		}
 	}
 
 	//归还图书
 	backBook(loan) {
-		loan.state = 1;
-		post(`${serverURL}?${table.loan}&_id=${loan._id}`, loan, rjson => {
-			if (rjson.success) {
-				this.getLoanInfo(global.user);
-			}
+		loan.isBack = '1';
+		store.saveLoan(loan, () => {
+			this.getLoanInfo(global.user);
 		});
 	}
 
@@ -115,7 +85,7 @@ export default class My extends Component {
 						<Text style={styles.rowTxt}>借出时间：{formatDate(loan.time)}</Text>
 					</View>
 					<View style={styles.rItem}>
-						<Text style={styles.rowTxt}>应还时间：{formatDate(3*7*24*60*60*1000 + loan.time)}</Text>
+						<Text style={styles.rowTxt}>应还时间：{formatDate(3*7*24*60*60*1000 + parseInt(loan.time))}</Text>
 					</View>
 					<View style={styles.rItem}>
 						<TouchableOpacity onPress={() => this.props.navigator.push({name: 'Comment', bookId: loan._id.split('-')[0]})}>
@@ -133,66 +103,61 @@ export default class My extends Component {
 	}
 
 	renderItem(user) {
-		if (user) {
-			return (
-				<View>
-					<View style={styles.personInfo}>
-						<Image source={{uri: user.avatar}} style={styles.avatar}/>
-						<Text style={styles.nickname}>{user.nickname}</Text>
-						<TouchableOpacity style={styles.setBtn} onPress={() => this.props.navigator.push(routes['Sets'])}>
-							<Text style={styles.set}>设置</Text>
-						</TouchableOpacity>
-					</View>
-					<ListView
-						dataSource = {this.state.dataSource}
-						renderRow = {this.renderRow.bind(this)}
-						style= {styles.list}
-						enableEmptySections={true}
-					/>
-					<View style={styles.total}>
-						<Text style={styles.label}>您总共借阅了</Text>
-						<Text style={styles.count}>[{this.state.total}]</Text>
-						<Text style={styles.label}>本图书</Text>
-					</View>
+		return (
+			<View>
+				<View style={styles.personInfo}>
+					<Image source={{uri: user.avatar}} style={styles.avatar}/>
+					<Text style={styles.nickname}>{user.nickname}</Text>
 				</View>
-			);
-		} else {
-			return (
-				<WebView
-					source={{uri: loginURL + '?type=mail'}}
-					style={{marginTop: 20}}
-					javaScriptEnabled={true}
-					onNavigationStateChange={this.navChange.bind(this)}
+				<ListView
+					dataSource = {this.state.dataSource}
+					renderRow = {this.renderRow.bind(this)}
+					style= {styles.list}
+					enableEmptySections={true}
 				/>
-			);
-		}
+				<View style={styles.total}>
+					<Text style={styles.label}>您总共借阅了</Text>
+					<Text style={styles.count}>[{this.state.total}]</Text>
+					<Text style={styles.label}>本图书</Text>
+				</View>
+			</View>
+		);
 	}
 
 	render() {
-		let navStatus = [0, 0, 1], user = this.state.user || global.user;
-		return (
-			this.renderItem(user)
-		);
+		let user = this.state.user || global.user;
+		if (user) {
+			return (
+				this.renderItem(user)
+			);
+		} else {
+			return (
+				<Login onLogin={this.onLogin.bind(this)}/>
+			);
+		}
 	}
 }
-const styles = StyleSheet.create({
+const styles = {
 	bdy: {backgroundColor: '#fff'},
 	personInfo: {
+		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		paddingTop: 35,
+		paddingTop: 10,
 		paddingBottom: 10,
 		borderBottomWidth: 1,
 		borderBottomColor: '#f5f3fe'
 	},
 	avatar: {
-		width: 80,
-		height: 80,
-		borderRadius: 40
+		width: 50,
+		height: 50,
+		borderRadius: 25
 	},
 	nickname: {
 		fontSize: 20,
-		marginTop: 20
+		marginTop: 0,
+		marginLeft: 20,
+		color: '#666'
 	},
 	setBtn: {
 		position: 'absolute',
@@ -239,4 +204,4 @@ const styles = StyleSheet.create({
 	count: {
 		color: '#666',
 	}
-});
+};

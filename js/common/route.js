@@ -7,8 +7,8 @@ const ROUTE_STACK = {
 		level: 1,
 		navState: [1, 0, 0]
 	},
-	'Scan': {
-		name: 'Scan',
+	'Borrow': {
+		name: 'Borrow',
 		title: '借书',
 		level: 1,
 		navState: [0, 1, 0]
@@ -17,11 +17,16 @@ const ROUTE_STACK = {
 		name: 'My',
 		title: '我',
 		level: 1,
-		navState: [0, 0, 1]
+		navState: [0, 0, 1],
+		menu: true
 	},
 	'Detail': {
 		name: 'Detail',
 		title: '图书详情'
+	},
+	'Scan': {
+		name: 'Scan',
+		title: '扫描二维码',
 	},
 	'Loan': {
 		name: 'Loan',
@@ -38,7 +43,19 @@ const ROUTE_STACK = {
 	'Sets': {
 		name: 'Sets',
 		title: '设置'
-	},
+	}
 };
 
 export default ROUTE_STACK;
+
+//检查路由是否已经在堆栈中
+export function isBusy(navigator, route) {
+	let stackRouts = navigator.getCurrentRoutes(),
+		flag = false;
+	stackRouts.map(stackRoute => {
+		if (stackRoute.name === route.name) {
+			flag = true;
+		}
+	});
+	return flag;
+}

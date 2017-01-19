@@ -1,7 +1,5 @@
-'use strict';
 import React, {Component} from 'react';
 import {
-	StyleSheet,
 	View,
 	Text,
 	TouchableOpacity,
@@ -11,6 +9,7 @@ import Dimension from 'Dimensions';
 
 import routes from './route';
 import history, {back} from './history';
+import Menu from './Menu';
 
 export default class Head extends Component {
 	constructor(props) {
@@ -33,6 +32,20 @@ export default class Head extends Component {
 		}
 	}
 
+	renderMenu(hist, navigator) {
+		if (hist.curr.menu) {
+			return (
+				<View style={[styles.col, styles.menu]}>
+					<Menu navigator={navigator} route={hist.curr.name} />
+				</View>
+			);
+		} else {
+			return (
+				<View style={[styles.col, styles.menu]}></View>
+			);
+		}
+	}
+
 	render() {
 		let {navigator} = this.props,
 			hist = this.state.hist;
@@ -42,22 +55,20 @@ export default class Head extends Component {
 				<View style={[styles.col, styles.title]}>
 					<Text style={styles.titleTxt}>{hist.curr.title}</Text>
 				</View>
-				<View style={[styles.col, styles.menu]}>
-					<Text> </Text>
-				</View>
+				{this.renderMenu(hist, navigator)}
 			</View>
 		);
 	}
 }
 
 const colW = Dimension.get('window').width / 3;
-const styles = StyleSheet.create({
+const styles = {
 	head: {
 		position: 'absolute',
 		top: 0,
 		left: 0,
 		flexDirection: 'row',
-		backgroundColor: '#f5f5f5',
+		backgroundColor: '#f2f2f2',
 		height: 65,
 		alignItems: 'center',
 		paddingTop: 30,
@@ -90,4 +101,4 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 		color: '#666'
 	}
-});
+};
