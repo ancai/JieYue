@@ -11,12 +11,11 @@ import {
 import {
 	bookImageURL
 } from './common/env';
-import formatDate from './common/date';
-import get, {post} from './common/data';
+import formatDate from './util/date';
 import routes from './common/route';
 import auth from './common/auth';
 import Login from './Login';
-import store from './service/store';
+import service from './store/service';
 
 export default class My extends Component {
 	constructor(props) {
@@ -58,7 +57,7 @@ export default class My extends Component {
 	//查询 (未归还的)借阅书籍的 信息
 	getLoanInfo(user) {
 		if (user) {
-			store.getLoanByUser(user, '0', arry => {
+			service.getLoanByUser(user, '0', arry => {
 				this.setState({
 					dataSource: this.state.dataSource.cloneWithRows(arry),
 					total: arry.length,
@@ -71,7 +70,7 @@ export default class My extends Component {
 	//归还图书
 	backBook(loan) {
 		loan.isBack = '1';
-		store.saveLoan(loan, () => {
+		service.saveLoan(loan, () => {
 			this.getLoanInfo(global.user);
 		});
 	}
@@ -88,8 +87,8 @@ export default class My extends Component {
 						<Text style={styles.rowTxt}>应还时间：{formatDate(3*7*24*60*60*1000 + parseInt(loan.time))}</Text>
 					</View>
 					<View style={styles.rItem}>
-						<TouchableOpacity onPress={() => this.props.navigator.push({name: 'Comment', bookId: loan._id.split('-')[0]})}>
-							<Text style={[styles.rowTxt, styles.rowBtn]}>去点评</Text>
+						<TouchableOpacity onPress={() => this.props.navigator.push(Object.assign(routes['Comment'], {bookId: loan.bookId}))}>
+							<Text style={[styles.rowTxt, styles.rowBtn]}>去评论</Text>
 						</TouchableOpacity>
 					</View>
 					<View style={styles.rItem}>

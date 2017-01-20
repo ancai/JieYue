@@ -9,13 +9,12 @@ import {
 import {
 	bookImageURL,
 } from './common/env';
-import get, {post} from './common/data';
+import service from './store/service';
 import routes from './common/route';
 import back from './common/history';
 import auth from './common/auth';
-import uuid from './common/uuid';
-import decode from './common/base64';
-import store from './service/store';
+import uuid from './util/uuid';
+import decode from './util/base64';
 import Login from './Login';
 
 export default class Loan extends Component {
@@ -31,13 +30,13 @@ export default class Loan extends Component {
 		let {
 			bookId, issueId
 		} = this.props;
-		store.getBook(bookId, book => {
+		service.getBook(bookId, book => {
 			this.setState({
 				loaded: true,
 				book: book
 			});
 		});
-		store.getLoan(bookId, issueId, '0', arry => {
+		service.getLoan(bookId, issueId, '0', arry => {
 			if (arry.length > 0) {
 				let loanInfo = arry[0];
 				this.setState({loanInfo});
@@ -56,16 +55,16 @@ export default class Loan extends Component {
 		let issueId = this.props.issueId,
 			loanId = uuid();
 		//查询副本表
-		store.getIssues(book._id, issueList => {
+		service.getIssues(book._id, issueList => {
 			let issue, url;
 			//判断 是否可借阅
 			if (issueList
 				&& (issue = issueList[issueId-1]) ) {
 				//将副本表的状态修改为 不可借阅
 				issueList[issueId-1] = {load: loanId, status: 'off'};
-				store.updateIssues(book._id, issueList);
+				service.updateIssues(book._id, issueList);
 				//向 借阅表 load 插入一条记录
-				store.saveLoan({
+				service.saveLoan({
 					_id: loanId,
 					user: global.user.username,
 					time: (new Date().getTime()).toString(),

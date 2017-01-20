@@ -10,8 +10,8 @@ import {
 
 import Detail from './Detail';
 import {serverURL, bookImageURL, table} from './common/env';
-import get from './common/data';
 import routes from './common/route';
+import service from './store/service';
 
 export default class Books extends Component {
 	constructor(props) {
@@ -25,26 +25,30 @@ export default class Books extends Component {
 	}
 
 	componentDidMount() {
-		get(`${serverURL}/list?${table.book}`, (rjson) => {
+		service.getBooks(books => {
 			this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(rjson.result),
+				dataSource: this.state.dataSource.cloneWithRows(books),
 				loaded: true
 			});
 		});
 	}
 
 	renderLoadingView() {
-		return (<View style={styles.loading}>
-			<Text style={styles.loadTxt}>正在加载图书数据......</Text>
-		</View>)
+		return (
+			<View style={styles.loading}>
+				<Image source={require('./img/loading.gif')} />
+			</View>
+		);
 	}
 
 	renderBook(book) {
-		return (<TouchableOpacity style={styles.btn} onPress={() => this.showDetail(book)}>
-					<View style={styles.row}>
-						<Image source={{uri: bookImageURL + 's300x300_' + book.cover}} style = {styles.pic} />
-					</View>
-				</TouchableOpacity>)
+		return (
+			<TouchableOpacity style={styles.btn} onPress={() => this.showDetail(book)}>
+				<View style={styles.row}>
+					<Image source={{uri: bookImageURL + 's300x300_' + book.cover}} style = {styles.pic} />
+				</View>
+			</TouchableOpacity>
+		);
 	}
 
 	showDetail(book) {
@@ -79,7 +83,7 @@ var styles = {
 		flex:1,
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: '#e3ba8c'
+		backgroundColor: '#fff'
 	},
 	loadTxt: {
 		fontSize: 20,
@@ -99,14 +103,15 @@ var styles = {
 		flexDirection: 'row',
 	},
 	row: {
-		alignItems: 'flex-start',
+		alignItems: 'center',
+		justifyContent: 'center',
 		width: col,
 		height: row
 	},
 	pic: {
-		width: col - 20,
+		width: col-16,
 		height: row - 20,
-		margin: 10,
+		margin: 8,
 		flex:1,
 		borderRadius: 5
 	}

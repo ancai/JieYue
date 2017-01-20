@@ -38,7 +38,8 @@ const ROUTE_STACK = {
 	},
 	'Comment': {
 		name: 'Comment',
-		title: '发表评论'
+		title: '发表评论',
+		menu: true
 	},
 	'Sets': {
 		name: 'Sets',

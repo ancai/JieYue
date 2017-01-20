@@ -11,6 +11,9 @@ import {
 	serverURL,
 	table
 } from './common/env';
+import uuid from './util/uuid';
+import routes from './common/route';
+import service from './store/service';
 import star from './common/star';
 
 
@@ -24,34 +27,20 @@ export default class Comment extends Component {
 		};
 	};
 
-	getBookById(bookId, callback) {
-		let url = `${serverURL}?${table.book}&_id=${bookId}`;
-		get(url, (rjson) => {
-			if (rjson.success) {
-				callback(rjson.result);
-			}
-		});
-	}
-
 	submitData() {
-		let commentId = new Date().getTime(),
-			url = `${serverURL}?${table.comments}&_id=${commentId}`,
+		let _id = uuid(),
 			{score, title, content} = this.state,
 			{bookId} = this.props,
-			{nickname} = global.user;
-		post(url, {
-				nickname, score, title, content, bookId
-		}, rjson => {
-			if (rjson.success) {
-				this.getBookById(bookId, function(book) {
-					this.props.navigator.push({
-						name: 'Detail',
-						params: {
-							book: book
-						}
-					});
-				}.bind(this));
-			}
+			{nickname} = global.user
+			time = Date.now().toString();
+		service.saveComment({
+			_id, nickname, score, title, content, bookId, time
+		}, () => {
+			service.getBook(bookId, book => {
+				this.props.navigator.push(
+					Object.assign(routes['Detail'], {book})
+				);
+			});
 		});
 	}
 

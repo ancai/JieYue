@@ -10,13 +10,11 @@ import {
 	ListView
 } from 'react-native'
 
-import formatDate from './common/date';
+import formatDate from './util/date';
 import {
-	serverURL,
-	bookImageURL,
-	table
+	bookImageURL
 } from './common/env';
-import get from './common/data';
+import service from './store/service';
 import star from './common/star';
 import Head from './common/Head';
 
@@ -35,9 +33,9 @@ export default class Detail extends Component {
 	}
 
 	componentDidMount() {
-		let id = this.props.book._id;
-		let url = `${serverURL}?_id=${id}&${table.toc}`;
-		get(url, rjson => {
+		let bookId = this.props.book._id;
+
+		service.getToc(bookId, toc => {
 			var toc =
 			`<!DOCTYPE html>
 				<html lang="en">
@@ -54,16 +52,16 @@ export default class Detail extends Component {
 						});
 					</script>
 				</head>
-				<body>${rjson.result.toc}</body>
+				<body>${toc}</body>
 			</html>`;
 			this.setState({toc});
 		});
-		get(`${serverURL}/list?${table.comments}`, rjson => {
-			let arry = rjson.result.filter(item => item.bookId === id);
+
+		service.getComments(bookId, comments => {
 			this.setState({
-				dataSource: this.state.dataSource.cloneWithRows(arry),
+				dataSource: this.state.dataSource.cloneWithRows(comments),
 				loaded: true,
-				total: arry.length
+				total: comments.length
 			});
 		});
 	}
@@ -84,7 +82,7 @@ export default class Detail extends Component {
 				<View style = {styles.rowAuthor}>
 					<Text style={styles.authorInfo}>{star(cmnt.score)}</Text>
 					<Text style={styles.authorInfo}>{cmnt.nickname}</Text>
-					<Text style={styles.authorInfo}>{formatDate(parseInt(cmnt._id))}</Text>
+					<Text style={styles.authorInfo}>{formatDate(cmnt.time)}</Text>
 				</View>
 				<View>
 					<Text style={styles.rowCnt}>{cmnt.content}</Text>
@@ -162,8 +160,8 @@ const styles = StyleSheet.create({
 		margin: 5,
 	},
 	pic: {
-		width: 400,
-		height: 400,
+		width: 475,
+		height: 475,
 		margin: 5,
 	},
 	desc: {
