@@ -49,6 +49,10 @@ const ROUTE_STACK = {
 	'Search': {
 		name: 'Search',
 		title: '搜索图书'
+	},
+	'Toc': {
+		name: 'Toc',
+		title: '展开目录'
 	}
 };
 

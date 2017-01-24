@@ -67,10 +67,11 @@ export default class Detail extends Component {
 	}
 
 	navChange(navState) {
-		let h = Number(navState.title)|| 0;
-		if (h) {
-			this.setState({tocH: h});
-		}
+		// let h = Number(navState.title)|| 0;
+		// if (h) {
+		// 	this.setState({tocH: h});
+		// }
+		this.setState({tocH: 300});
 	}
 
 	renderRow(cmnt) {
@@ -96,8 +97,19 @@ export default class Detail extends Component {
 		return (
 			<ScrollView style={styles.container}>
 				<View style={styles.head}>
-					<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
+					<Image source={{uri: bookImageURL + 's450x450_' + book.cover}} style = {styles.pic} />
 					<Text style={styles.title}>{book.title}</Text>
+				</View>
+				<View style={styles.tabBar}>
+					<TouchableOpacity style={styles.tabItem}>
+						<Text style={styles.tabTxt}>简介</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.tabItem}>
+						<Text style={styles.tabTxt}>目录</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.tabItem}>
+						<Text style={styles.tabTxt}>评论</Text>
+					</TouchableOpacity>
 				</View>
 				<View><Text style={styles.desc}>{book.desc}</Text></View>
 				<WebView style={[styles.category, {height: this.state.tocH}]}
@@ -145,23 +157,35 @@ export default class Detail extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 30,
+		paddingTop: 5,
 		backgroundColor: "#fff"
 	},
 	head: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		flexWrap: 'wrap'
+		borderBottomWidth: 8,
+		borderBottomColor: '#dedede'
+	},
+	tabBar: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	tabItem: {
+		margin: 30
+	},
+	tabTxt: {
+		fontSize: 18,
+		color: '#999'
 	},
 	title: {
-		flex:1,
-		fontSize: 20,
-		color: '#000',
-		margin: 5,
+		fontSize: 18,
+		color: '#333',
+		margin: 15,
 	},
 	pic: {
-		width: 475,
-		height: 475,
+		width: 450,
+		height: 450,
 		margin: 5,
 	},
 	desc: {
@@ -172,7 +196,6 @@ const styles = StyleSheet.create({
 	category: {
 		margin: 10,
 		borderWidth: 1,
-		height: 500
 	},
 	param: {
 		paddingTop: 10,

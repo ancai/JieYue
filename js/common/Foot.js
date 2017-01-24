@@ -32,7 +32,7 @@ export default class Foot extends Component {
 			return i == 0 ? {
 				color: '#999'
 			} : {
-				color: Color.BTN_FCS_CLR
+				color: Color.BASE
 			};
 		});
 		return (

@@ -141,7 +141,7 @@ const styles = {
 		borderBottomWidth: 1,
 		borderBottomColor: '#d1d1d1',
 		marginTop: 10,
-		backgroundColor: '#fffffe'
+		backgroundColor: '#fffffd'
 	},
 	pic: {
 		width: 120,
