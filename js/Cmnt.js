@@ -12,6 +12,7 @@ import {
 	table
 } from './common/env';
 import uuid from './util/uuid';
+import listener from './util/listen';
 import routes from './common/route';
 import service from './store/service';
 import star from './common/star';
@@ -26,6 +27,12 @@ export default class Comment extends Component {
 			content: ''
 		};
 	};
+
+	componentDidMount() {
+		listener.add('submitCmt', () => {
+			this.submitData();
+		});
+	}
 
 	submitData() {
 		let _id = uuid(),
@@ -51,18 +58,9 @@ export default class Comment extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View style={[styles.toolBar, styles.splitLine]}>
-					<TouchableOpacity onPress={() => this.props.navigator.pop()}>
-						<Text style={styles.toolTxt}>取消</Text>
-					</TouchableOpacity>
-					<Text style={[styles.toolTxt, styles.toolTitle]}>撰写评论</Text>
-					<TouchableOpacity onPress={this.submitData.bind(this)}>
-						<Text style={styles.toolTxt}>发送</Text>
-					</TouchableOpacity>
-				</View>
 				<View style={[styles.starBar, styles.splitLine]}>
 					<View style={styles.star}>
-						{star(this.state.score, this.pressStar.bind(this))}
+						{star(this.state.score, this.pressStar.bind(this), styles.starIcn)}
 					</View>
 					<View style={styles.star}>
 						<Text style={styles.starTxt}>轻点星形来评分</Text>
@@ -90,33 +88,21 @@ export default class Comment extends Component {
 
 const styles = {
 	container: {flex: 1, paddingTop: 30, backgroundColor: '#fff'},
-	toolBar: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		height: 50,
-		paddingLeft: 20,
-		paddingRight: 20,
-	},
 	splitLine: {
 		borderBottomWidth: 1,
 		borderBottomColor: '#f1f1f1'
 	},
-	toolTxt: {
-		fontSize: 16,
-		color: '#3f96ec'
-	},
-	toolTitle: {
-		fontSize: 18,
-		color: '#333'
-	},
 	starBar: {
-		height: 65,
+		height: 95,
 	},
 	star: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center'
+	},
+	starIcn: {
+		fontSize: 30,
+		margin: 15
 	},
 	starTxt: {
 		color: '#999',

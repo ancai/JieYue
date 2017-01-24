@@ -1,13 +1,13 @@
-'use strict';
 import React, { Component } from 'react';
 import {
 	AppRegistry,
-	StyleSheet,
 	Text,
 	View,
 	Navigator
 } from 'react-native';
 
+import routes from './common/route';
+import history from './common/history';
 import tmpl from './common/tmpl';
 import Books from './Books';
 import Borrow from './Borrow';
@@ -18,8 +18,7 @@ import Loan from './Loan';
 import LoanOK from './Over';
 import Comment from './Cmnt';
 import Sets from './Sets';
-import routes from './common/route';
-import history from './common/history';
+import Search from './Search';
 
 export default class Main extends Component {
 	static defaultProps = {
@@ -60,6 +59,8 @@ export default class Main extends Component {
 		case 'Sets':
 			scene = <Sets navigator={navigator} />;
 			break;
+		case 'Search':
+			scene = <Search navigator={navigator} />;
 		}
 		return tmpl(navigator, scene, router.navState);
 	}
@@ -78,11 +79,11 @@ export default class Main extends Component {
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#F5FCFF',
 	}
-});
+};

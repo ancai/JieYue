@@ -15,13 +15,13 @@ function starIcon(params) {
 }
 
 //五星评价组件
-export default function renderStars(score, handle) {
+export default function renderStars(score, handle, style = {}) {
 	let stars = [];
 	for (let i = 0; i < 5; i++) {
 		let param = {
 			key: ('star=' + i),
-			name: 'star-o',
-			style: {fontSize: 20, color: '#fff40c', margin: 10},
+			name: 'star',
+			style: Object.assign({fontSize: 20, color: '#e9a808', margin: 10}, style),
 			score: (i+1),
 			handle: handle
 		};

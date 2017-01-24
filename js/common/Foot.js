@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Dimension from 'Dimensions';
 
 import routes, {isBusy} from '../common/route';
+import Color from './color';
 
 export default class Foot extends Component {
 	constructor(props) {
@@ -31,7 +32,7 @@ export default class Foot extends Component {
 			return i == 0 ? {
 				color: '#999'
 			} : {
-				color: '#1aac19'
+				color: Color.BTN_FCS_CLR
 			};
 		});
 		return (

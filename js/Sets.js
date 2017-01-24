@@ -5,14 +5,14 @@ import {
 	StyleSheet,
 	Text,
 	Image,
-	TouchableOpacity,
-	DeviceEventEmitter
+	TouchableOpacity
 } from 'react-native';
 import Dimension from 'Dimensions';
 import CookieManager from 'react-native-cookies';
 
 import {back} from './common/history';
 import auth from './common/auth';
+import listener from './util/listen';
 
 export default class Sets extends Component {
 	constructor(props) {
@@ -34,7 +34,7 @@ export default class Sets extends Component {
 		CookieManager.clearAll((err, res) => {
 			global.user = null;
 			back(this.props.navigator);
-			DeviceEventEmitter.emit('logout', global.user);
+			listener.emit('logout', global.user);
 		});
 	}
 

@@ -1,15 +1,23 @@
-import get, {post} from './data';
 import {
 	serverURL,
-	bookImageURL,
 	table
 } from '../common/env';
+import get, {post} from './remote';
 
 export default {
-	//获得 图书列表
+	//获得 图书列表(支持按 书名 模糊查询)
 	getBooks(callback) {
-		let url = `${serverURL}/list?${table.book}`,
+		let args = arguments,
+			url = `${serverURL}/list?${table.book}`,
+			bookName,
 			books;
+
+		if (args.length === 2) {
+			//处理 按照书名查询的情况，第一个参数 书名，第二个参数 回调函数
+			bookName = args[0];
+			callback = args[1];
+			url += `&title=/${bookName}/`
+		}
 		get(url, (rjson) => {
 			books = rjson.result;
 			callback(books);

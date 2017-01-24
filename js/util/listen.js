@@ -1,3 +1,15 @@
-https://github.com/hugohua/react-native-communicate-demo/blob/master/Demo3.js
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
-//不同组件 之间的通信  工具类
+//监听器，用于 两个没有直接关系的组件间的通信
+
+export default {
+
+	add(name, handle) {
+		RCTDeviceEventEmitter.addListener(name, handle);
+	},
+
+	emit(name, value) {
+		RCTDeviceEventEmitter.emit(name, value);
+	}
+
+};

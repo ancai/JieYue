@@ -5,7 +5,8 @@ const ROUTE_STACK = {
 		name: 'Home',
 		title: '图书馆',
 		level: 1,
-		navState: [1, 0, 0]
+		navState: [1, 0, 0],
+		menu: true
 	},
 	'Borrow': {
 		name: 'Borrow',
@@ -38,12 +39,16 @@ const ROUTE_STACK = {
 	},
 	'Comment': {
 		name: 'Comment',
-		title: '发表评论',
+		title: '写评论',
 		menu: true
 	},
 	'Sets': {
 		name: 'Sets',
 		title: '设置'
+	},
+	'Search': {
+		name: 'Search',
+		title: '搜索图书'
 	}
 };
 

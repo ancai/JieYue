@@ -4,14 +4,14 @@ import {
 	Text,
 	TouchableOpacity,
 	Image,
-	ListView,
-	DeviceEventEmitter
+	ListView
 } from 'react-native';
 
 import {
 	bookImageURL
 } from './common/env';
 import formatDate from './util/date';
+import listener from './util/listen';
 import routes from './common/route';
 import auth from './common/auth';
 import Login from './Login';
@@ -41,13 +41,9 @@ export default class My extends Component {
 	}
 
 	componentDidMount() {
-		this.subscription = DeviceEventEmitter.addListener('logout', () => {
+		listener.add('logout', () => {
 			this.state.user = null;
 		});
-	}
-
-	componentWillUnmount() {
-		this.subscription.remove();
 	}
 
 	onLogin(user) {

@@ -1,8 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import {
-	View,
-	StyleSheet
+	View
 } from 'react-native';
 import Head from './Head';
 import Foot from './Foot';
@@ -24,7 +23,7 @@ export default function tmpl(navigator, body, navState) {
 	);
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 		flexDirection: 'row',
@@ -39,4 +38,4 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		flexWrap: 'wrap'
 	}
-});
+};

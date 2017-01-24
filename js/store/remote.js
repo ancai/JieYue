@@ -10,7 +10,6 @@ export default function get(url, callback) {
 			console.log(err);
 		})
 		.done();
-
 }
 
 //params 是一个JSON对象
