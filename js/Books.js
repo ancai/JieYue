@@ -8,7 +8,7 @@ import {
 	Dimensions
 } from 'react-native';
 
-import Detail from './Detail';
+import Detail, {TABS} from './Detail';
 import {serverURL, bookImageURL, table} from './common/env';
 import routes from './common/route';
 import service from './store/service';
@@ -43,7 +43,9 @@ export default class Books extends Component {
 
 	renderBook(book) {
 		return (
-			<TouchableOpacity style={styles.btn} onPress={() => this.showDetail(book)}>
+			<TouchableOpacity style={styles.btn}
+				onPress={() => this.showDetail(book)}
+				onLongPress={() => this.showBigPic(book)}>
 				<View style={styles.row}>
 					<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
 				</View>
@@ -53,7 +55,13 @@ export default class Books extends Component {
 
 	showDetail(book) {
 		this.props.navigator.push(
-			Object.assign(routes['Detail'], {book})
+			Object.assign(routes['Detail'], {book}, {tab: TABS[0]})
+		);
+	}
+
+	showBigPic(book) {
+		this.props.navigator.push(
+			Object.assign(routes['BigPic'], {picUri: bookImageURL + 's800x800_' + book.cover})
 		);
 	}
 

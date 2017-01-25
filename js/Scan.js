@@ -20,15 +20,18 @@ export default class Scan extends Component {
     render() {
     	var navStatus = [0, 1, 0];
         return (
-        	<Camera
-				ref={cam => this.camera = cam}
-				aspect={Camera.constants.Aspect.fill}
-				onBarCodeRead={this._onBarCodeRead.bind(this)}
-				style={styles.camera}>
-				<View style={styles.rectangleContainer}>
-				  <View style={styles.rectangle}/>
+        	<View style={styles.wrap}>
+        		<Camera
+					ref={cam => this.camera = cam}
+					aspect={Camera.constants.Aspect.fill}
+					onBarCodeRead={this._onBarCodeRead.bind(this)}
+					style={styles.camera}>
+					<View style={styles.rectangle}/>
+				</Camera>
+				<View style={styles.tipBar}>
+					<Text style={styles.tipTxt}>无法识别二维码</Text>
 				</View>
-			</Camera>
+        	</View>
 		);
 	}
 
@@ -62,32 +65,30 @@ export default class Scan extends Component {
 	}
 }
 
-const { width, height } = Dimensions.get('window');
-const styles = StyleSheet.create({
-	bdy: {
-		backgroundColor: 'transparent'
+const styles = {
+	wrap: {
+		flex: 1,
+		backgroundColor: 'rgba(0, 0, 0, 1)'
 	},
 	camera: {
-	    width:width,
-	    height: 500,
-	    alignItems: 'center',
-	    justifyContent: 'center',
-	    backgroundColor: 'transparent'
-	  },
+		flex: 9,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	tipBar: {
+		flex: 1,
+		backgroundColor: 'black'
+	},
 
-	  rectangleContainer: {
-	    flex: 1,
-	    alignItems: 'center',
-	    justifyContent: 'center',
-	    backgroundColor: 'transparent',
-	    height: 450
-	  },
+	tipTxt: {
+		color: '#fff'
+	},
 
-	  rectangle: {
-	    height: 250,
-	    width: 250,
-	    borderWidth: 2,
-	    borderColor: '#00FF00',
-	    backgroundColor: 'transparent',
-	  },
-});
+	rectangle: {
+		height: 250,
+		width: 250,
+		borderWidth: 2,
+		borderColor: '#00FF00',
+		backgroundColor: 'transparent',
+	},
+};

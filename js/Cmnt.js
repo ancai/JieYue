@@ -11,7 +11,7 @@ import listener from './util/listen';
 import routes from './common/route';
 import service from './store/service';
 import star from './common/star';
-
+import {TABS} from './Detail';
 
 export default class Comment extends Component {
 	constructor(props) {
@@ -40,7 +40,7 @@ export default class Comment extends Component {
 		}, () => {
 			service.getBook(bookId, book => {
 				this.props.navigator.push(
-					Object.assign(routes['Detail'], {book})
+					Object.assign(routes['Detail'], {book}, {tab: TABS[2]})
 				);
 			});
 		});

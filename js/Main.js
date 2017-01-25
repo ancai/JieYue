@@ -47,7 +47,7 @@ export default class Main extends Component {
 			scene = <My navigator={navigator}/>;
 			break;
 		case 'Detail':
-			scene = <Detail navigator={navigator} book={router.book}/>;
+			scene = <Detail navigator={navigator} book={router.book} tab={router.tab}/>;
 			break;
 		case 'Scan':
 			scene = <Scan navigator={navigator}/>;

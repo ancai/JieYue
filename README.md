@@ -7,4 +7,8 @@
 	归还图书
 	。。。。。。
 
-播放声音，使用 [react-native-sound](https://github.com/zmxv/react-native-sound)
+扫描二维码，使用 [react-native-camera](https://github.com/lwansbrough/react-native-camera)
+
+读取Cookie，使用[react-native-cookies](https://github.com/joeferraro/react-native-cookies)
+
+字体图标，使用[react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)

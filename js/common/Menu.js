@@ -52,7 +52,7 @@ const styles = {
 	},
 	menuTxt: {
 		fontSize: 16,
-		color: Color.BTN_FCS_CLR,
+		color: Color.BASE,
 		paddingLeft: 30,
 		paddingRight: 18
 	}
