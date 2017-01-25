@@ -9,6 +9,7 @@ import {
 import routes from './common/route';
 import history from './common/history';
 import tmpl from './common/tmpl';
+import BigPic from './common/BigPic';
 import Books from './Books';
 import Borrow from './Borrow';
 import My from './My';
@@ -25,8 +26,12 @@ export default class Main extends Component {
 		title: '图书借阅'
 	};
 
-	configScene() {
-		return Navigator.SceneConfigs.ToTheRight;
+	configScene(route, routeStack) {
+		if (route.name === routes['BigPic'].name) {
+			return Navigator.SceneConfigs.VerticalUpSwipeJump;
+		} else {
+			return Navigator.SceneConfigs.ToTheRight;
+		}
 	}
 
 	renderScene(router, navigator) {
@@ -61,8 +66,12 @@ export default class Main extends Component {
 			break;
 		case 'Search':
 			scene = <Search navigator={navigator} />;
+			break;
+		case 'BigPic':
+			scene = <BigPic navigator={navigator} picUri={router.picUri}/>;
+			break;
 		}
-		return tmpl(navigator, scene, router.navState);
+		return tmpl(navigator, scene, router);
 	}
 
 	onWillFocus(router) {

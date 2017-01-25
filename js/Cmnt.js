@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import {
 	View,
-	StyleSheet,
 	TouchableOpacity,
 	Text,
 	TextInput
 } from 'react-native';
 
-import {
-	serverURL,
-	table
-} from './common/env';
 import uuid from './util/uuid';
 import listener from './util/listen';
 import routes from './common/route';

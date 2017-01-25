@@ -31,7 +31,6 @@ export default class Books extends Component {
 				loaded: true
 			});
 		});
-		console.log(width, height);
 	}
 
 	renderLoadingView() {
@@ -46,7 +45,7 @@ export default class Books extends Component {
 		return (
 			<TouchableOpacity style={styles.btn} onPress={() => this.showDetail(book)}>
 				<View style={styles.row}>
-					<Image source={{uri: bookImageURL + 's150x150_' + book.cover}} style = {styles.pic} />
+					<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
 				</View>
 			</TouchableOpacity>
 		);

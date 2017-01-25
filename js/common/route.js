@@ -50,9 +50,10 @@ const ROUTE_STACK = {
 		name: 'Search',
 		title: '搜索图书'
 	},
-	'Toc': {
-		name: 'Toc',
-		title: '展开目录'
+	'BigPic': {
+		name: 'BigPic',
+		title: '查看大图',
+		hideHead: true
 	}
 };
 

@@ -1,7 +1,6 @@
 'use strict';
 import React, {Component} from 'react';
 import {
-	StyleSheet,
 	View,
 	Text,
 	TouchableOpacity
@@ -59,8 +58,9 @@ Foot.propTypes = {
 };
 
 const colW = Dimension.get('window').width / 3;
-const styles = StyleSheet.create({
+const styles = {
 	foot: {
+		flex: 1,
 		flexDirection: 'row',
 		position: 'absolute',
 		bottom: 0,
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
 	icon: {
 		fontSize: 25
 	}
-});
+};

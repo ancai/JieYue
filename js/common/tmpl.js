@@ -7,16 +7,28 @@ import Head from './Head';
 import Foot from './Foot';
 
 //整体布局：标题栏(头部) + 主体视图区域 + 导航栏(底部)
-export default function tmpl(navigator, body, navState) {
-	let foot, z_foot = {};
-	if (navState) {
-		foot = <Foot navBarStatus={navState} navigator={navigator} />;
-		z_foot = styles.z_foot;
+export default function tmpl(navigator, body, route) {
+	let head, notHead = {},
+		foot, hasFoot = {};
+
+	if (!route.hideHead) {
+		head = <Head navigator={navigator} />;
+	}
+	if (route.hideHead) {
+		notHead = {
+			paddingTop: 0
+		};
+	}
+	if (route.navState) {
+		foot = <Foot navBarStatus={route.navState} navigator={navigator} />;
+		hasFoot = {
+			paddingBottom: 55
+		};
 	}
 
 	return (
-		<View style={[styles.container, z_foot]}>
-			<Head navigator={navigator} />
+		<View style={[styles.container, hasFoot, notHead]}>
+			{head}
 			<View style={styles.bdy}>{body}</View>
 			{foot}
 		</View>
@@ -29,9 +41,6 @@ const styles = {
 		flexDirection: 'row',
 		paddingTop: 66,
 		paddingBottom: 0
-	},
-	z_foot: {
-		paddingBottom: 55
 	},
 	bdy: {
 		flex: 1,
