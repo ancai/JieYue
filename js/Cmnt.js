@@ -11,7 +11,6 @@ import listener from './util/listen';
 import routes from './common/route';
 import service from './store/service';
 import star from './common/star';
-import {TABS} from './Detail';
 
 export default class Comment extends Component {
 	constructor(props) {
@@ -40,7 +39,7 @@ export default class Comment extends Component {
 		}, () => {
 			service.getBook(bookId, book => {
 				this.props.navigator.push(
-					Object.assign(routes['Detail'], {book}, {tab: TABS[2]})
+					Object.assign(routes['Detail'], {book}, {tab: 2})
 				);
 			});
 		});
@@ -61,14 +60,14 @@ export default class Comment extends Component {
 						<Text style={styles.starTxt}>轻点星形来评分</Text>
 					</View>
 				</View>
-				<View style={[styles.titleCmt, styles.splitLine]}>
+				<View style={[styles.titleBar, styles.splitLine]}>
 					<TextInput
 						style={styles.titleInpt}
 						placeholder='标题'
 						onChangeText={(title) => this.setState({title})}
 					/>
 				</View>
-				<View style={styles.cmnt}>
+				<View style={styles.cmntBar}>
 					<TextInput
 						style={styles.cmntInpt}
 						placeholder='评论'
@@ -102,7 +101,7 @@ const styles = {
 	starTxt: {
 		color: '#999',
 	},
-	titleCmt: {
+	titleBar: {
 		height: 55,
 		flexDirection: 'row',
 	},
@@ -111,10 +110,10 @@ const styles = {
 		paddingLeft: 15,
 		color: '#333'
 	},
-	cmnt: {
+	cmntBar: {
 		flexDirection: 'row',
-		flex: 1,
-		paddingTop: 10
+		height: 200,
+		paddingTop: 10,
 	},
 	cmntInpt: {
 		flex: 1,

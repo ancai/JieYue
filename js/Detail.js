@@ -12,22 +12,21 @@ import {
 	bookImageURL
 } from './common/env';
 
-import Color from './common/color';
 import Head from './common/Head';
 import routes from './common/route';
+import TabBar from './common/TabBar';
 import Catalog from './Catalog';
 import CmntList from './Cmnts';
 import service from './store/service';
-
-export const TABS = ['INTRO', 'CATALOG', 'COMMENT'];
 
 export default class Detail extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tab: props.tab || TABS[0],
-			cmnts: [],
-			cmntSize: 0
+			tab: props.tab || 0,
+			cmnts: null,
+			cmntSize: 0,
+			cmntLoad: false
 		};
 	}
 
@@ -35,7 +34,7 @@ export default class Detail extends Component {
 		service.getComments(this.props.book._id, comments => {
 			this.setState({
 				cmnts: comments,
-				cmntSize: comments.length
+				cmntSize: comments.length,
 			});
 		});
 	}
@@ -74,40 +73,25 @@ export default class Detail extends Component {
 	}
 
 	renderTab() {
+		let cmntTxt = this.state.cmntSize ? '('+ this.state.cmntSize +')' : '';
 		return (
-			<View style={styles.tabBar}>
-				<TouchableOpacity style={styles.tabItem} onPress={() => this.setState({tab: TABS[0]})}>
-					<Text style={[styles.tabTxt, this.fcsItem(TABS[0])]}>简介</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.tabItem} onPress={() => this.setState({tab: TABS[1]})}>
-					<Text style={[styles.tabTxt, this.fcsItem(TABS[1])]}>目录</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.tabItem} onPress={() => this.setState({tab: TABS[2]})}>
-					<Text style={[styles.tabTxt, this.fcsItem(TABS[2])]}>评论{this.state.cmntSize?'('+ this.state.cmntSize +')':''}</Text>
-				</TouchableOpacity>
-			</View>
+			<TabBar
+				tabs={['简介', '目录', '评论' + cmntTxt]}
+				selected={this.state.tab}
+				onChange={index => this.setState({tab: index})}/>
 		);
 	}
 
-	fcsItem(tab) {
-		return this.state.tab === tab ? {color: Color.BASE} : {};
-	}
-
 	renderPanel(book) {
-		let panel;
-		switch (this.state.tab) {
-		case TABS[0]:
-			panel = <Text style={styles.intro}>{book.desc}</Text>;
-			break;
-		case TABS[1]:
-			panel = <Catalog bookId={book._id} />;
-			break;
-		case TABS[2]:
-			panel = <CmntList bookId={book._id} cmnts={this.state.cmnts} cmntSize={this.state.cmntSize}/>;
-			break;
+		if (0 === this.state.tab) {
+			return <Text style={styles.intro}>{book.desc}</Text>;
 		}
-
-		return panel;
+		if (1 === this.state.tab) {
+			return <Catalog bookId={book._id} />;
+		}
+		if (2 === this.state.tab && this.state.cmnts) {
+			return <CmntList bookId={book._id} cmnts={this.state.cmnts} cmntSize={this.state.cmntSize}/>;
+		}
 	}
 
 	render() {
@@ -148,24 +132,6 @@ const styles = {
 		width: 200,
 		height: 220,
 		marginTop: 0,
-	},
-	tabBar: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderBottomWidth: 1,
-		borderBottomColor: '#d1d1d1'
-	},
-	tabItem: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	tabTxt: {
-		fontSize: 18,
-		color: '#999',
-		margin: 20
 	},
 	intro: {
 		margin: 10,

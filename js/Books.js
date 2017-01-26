@@ -55,7 +55,7 @@ export default class Books extends Component {
 
 	showDetail(book) {
 		this.props.navigator.push(
-			Object.assign(routes['Detail'], {book}, {tab: TABS[0]})
+			Object.assign(routes['Detail'], {book}, {tab: 0})
 		);
 	}
 
