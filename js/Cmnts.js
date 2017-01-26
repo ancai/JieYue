@@ -103,7 +103,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	emptyTxt: {
-		fontSize: 14,
+		fontSize: 15,
 		color: '#999'
 	}
 };

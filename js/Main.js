@@ -53,7 +53,7 @@ export default class Main extends Component {
 			scene = <Scan navigator={navigator}/>;
 			break;
 		case 'Loan':
-			scene = <Loan navigator={navigator} bookId={router.params.bookId} issueId={router.params.issueId}/>;
+			scene = <Loan navigator={navigator} bookId={router.bookId} issueId={router.issueId}/>;
 			break;
 		case 'LoanOK':
 			scene = <LoanOK navigator={navigator} bookTitle={router.bookTitle} />;
