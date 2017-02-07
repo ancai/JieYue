@@ -56,18 +56,20 @@ export default class Search extends Component {
 	renderInit() {
 		return (
 			<TextInput style={styles.searchBox}
-				placeholder='请输入书名，按下回车展示结果'
+				placeholder='请输入书名'
 				onChangeText = {query => this.setState({query})}
-				onBlur = {this.findBooks.bind(this)}/>
+				onBlur = {this.findBooks.bind(this)}
+				returnKeyType='search'/>
 		);
 	}
 
 	renderQrySch() {
 		return (
 			<TextInput style={[styles.searchBox, styles.schBoxTop]}
-				placeholder='请输入书名，按下回车展示结果'
+				placeholder='请输入书名'
 				onChangeText = {query => this.setState({query})}
 				onBlur = {this.findBooks.bind(this)}
+				returnKeyType='search'
 				defaultValue = {this.state.query}/>
 		);
 	}

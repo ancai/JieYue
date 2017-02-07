@@ -5,6 +5,7 @@ import {
 	StyleSheet,
 	Text,
 	Image,
+	Switch,
 	TouchableOpacity
 } from 'react-native';
 import Dimension from 'Dimensions';
@@ -12,13 +13,15 @@ import CookieManager from 'react-native-cookies';
 
 import {back} from './common/history';
 import auth from './common/auth';
+import get, {set} from './store/local';
 import listener from './util/listen';
 
 export default class Sets extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: global.user
+			user: global.user,
+			switch: false
 		};
 	}
 
@@ -27,6 +30,10 @@ export default class Sets extends Component {
 			if (user) {
 				this.setState(user);
 			}
+		});
+		get('switch', val => {
+			console.log(typeof val);
+			this.setState({switch: !!parseInt(val)});
 		});
 	}
 
@@ -60,6 +67,16 @@ export default class Sets extends Component {
 				<View style={styles.version}>
 					<Image style={styles.logo} source={require('./img/jieyue_120.png')} />
 					<Text style={styles.vname}>图书借阅V1.3.1</Text>
+				</View>
+				<View style={styles.switchBar}>
+					<View style={styles.switchCol}>
+						<Text style={styles.switchTxt}>首屏图文展示</Text>
+					</View>
+					<View style={[styles.switchCol, {alignItems: 'flex-end'}]}>
+						<Switch value={this.state.switch}
+							onValueChange={val => this.setState({switch: val})}
+							style={styles.switchWidget} />
+					</View>
 				</View>
 				{this.renderByUser(this.state.user)}
 				<View style={styles.rights}>
@@ -121,6 +138,26 @@ const styles = StyleSheet.create({
 	rightsTxt: {
 		fontSize: 12,
 		color: '#999'
+	},
+	switchBar: {
+		backgroundColor: '#fff',
+		height: 50,
+		flexDirection: 'row',
+		marginTop: 10
+	},
+	switchCol: {
+		flex: 1,
+		height: 50,
+		justifyContent: 'center',
+	},
+	switchTxt: {
+		marginLeft: 15,
+		color: '#333',
+		fontSize: 15
+	},
+	switchWidget: {
+		marginRight: 15,
+		alignItems: 'flex-end'
 	}
 
 });

@@ -8,8 +8,9 @@ import {
 	Dimensions
 } from 'react-native';
 
-import Detail, {TABS} from './Detail';
+import Detail from './Detail';
 import {serverURL, bookImageURL, table} from './common/env';
+import {set} from './store/local';
 import routes from './common/route';
 import service from './store/service';
 
@@ -22,6 +23,7 @@ export default class Books extends Component {
 			}),
 			loaded: false
 		};
+		set('switch', '0');
 	}
 
 	componentDidMount() {
