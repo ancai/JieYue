@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import Camera from 'react-native-camera';
 
-import routes from './common/route';
+import routes from './filter/route';
 import Loan from './Loan';
 
 export default class Scan extends Component {

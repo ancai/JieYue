@@ -11,8 +11,9 @@ import {
 import Dimension from 'Dimensions';
 import CookieManager from 'react-native-cookies';
 
-import {back} from './common/history';
-import auth from './common/auth';
+import keys from './config/keys';
+import {back} from './filter/history';
+import auth from './filter/auth';
 import get, {set} from './store/local';
 import listener from './util/listen';
 
@@ -21,7 +22,7 @@ export default class Sets extends Component {
 		super(props);
 		this.state = {
 			user: global.user,
-			switch: false
+			[keys.switchs.display]: false //首屏图文展示 开关
 		};
 	}
 
@@ -31,17 +32,22 @@ export default class Sets extends Component {
 				this.setState(user);
 			}
 		});
-		get('switch', val => {
-			console.log(typeof val);
-			this.setState({switch: !!parseInt(val)});
+		get(keys.switchs.display, val => {
+			this.setState({[keys.switchs.display]: !!parseInt(val)});
 		});
+	}
+
+	setDisplay(val) {
+		set(keys.switchs.display, val ? '1' : '0');
+		this.setState({[keys.switchs.display]: val});
+		listener.emit(keys.action.display, val);
 	}
 
 	logout() {
 		CookieManager.clearAll((err, res) => {
 			global.user = null;
 			back(this.props.navigator);
-			listener.emit('logout', global.user);
+			listener.emit(keys.action.logout, global.user);
 		});
 	}
 
@@ -73,8 +79,8 @@ export default class Sets extends Component {
 						<Text style={styles.switchTxt}>首屏图文展示</Text>
 					</View>
 					<View style={[styles.switchCol, {alignItems: 'flex-end'}]}>
-						<Switch value={this.state.switch}
-							onValueChange={val => this.setState({switch: val})}
+						<Switch value={this.state[keys.switchs.display]}
+							onValueChange={this.setDisplay.bind(this)}
 							style={styles.switchWidget} />
 					</View>
 				</View>

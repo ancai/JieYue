@@ -6,7 +6,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import routes from './route';
-import Color from './color';
+import Color from '../config/color';
 import listener from '../util/listen';
 
 export default class Menu extends Component {

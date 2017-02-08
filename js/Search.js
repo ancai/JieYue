@@ -4,14 +4,13 @@ import {
 	Text,
 	TextInput,
 	ListView,
-	Image,
 	ScrollView,
-	TouchableOpacity
 } from 'react-native';
 
-import {bookImageURL} from './common/env';
+import {bookImageURL} from './config/env';
 import service from './store/service';
-import routes from './common/route';
+import routes from './filter/route';
+import BookList from './common/BookList';
 
 export default class Search extends Component {
 	constructor(props) {
@@ -42,17 +41,6 @@ export default class Search extends Component {
 		);
 	}
 
-	renderRow(book) {
-		return (
-			<TouchableOpacity onPress={() => this.showDetail(book)}>
-				<View style={styles.row}>
-					<Image source={{uri: bookImageURL + 's120x120_' + book.cover}} style={styles.pic}/>
-					<Text style={styles.bookTitle}>{book.title}</Text>
-				</View>
-			</TouchableOpacity>
-		);
-	}
-
 	renderInit() {
 		return (
 			<TextInput style={styles.searchBox}
@@ -79,11 +67,7 @@ export default class Search extends Component {
 			return (
 				<ScrollView>
 					{this.renderQrySch()}
-					<ListView
-						initialListSize={10}
-						dataSource={this.state.dataSource}
-						renderRow={this.renderRow.bind(this)}
-						style={styles.list}/>
+					<BookList navigator={this.props.navigator} dataSource={this.state.dataSource} />
 				</ScrollView>
 			);
 		} else {
@@ -130,30 +114,6 @@ const styles = {
 		color: '#1aac19',
 		marginTop: 15,
 		marginLeft: -10
-	},
-	list: {
-		paddingBottom: 1,
-	},
-	row: {
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		height: 140,
-		alignItems: 'center',
-		paddingLeft: 20,
-		borderBottomWidth: 1,
-		borderBottomColor: '#d1d1d1',
-		marginTop: 10,
-		backgroundColor: '#fffffd'
-	},
-	pic: {
-		width: 120,
-		height: 120,
-	},
-	bookTitle: {
-		color: '#666',
-		width: 245,
-		marginLeft: 15,
-		fontSize: 20
 	},
 	emptyTip: {
 		justifyContent: 'center',

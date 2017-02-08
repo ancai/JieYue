@@ -8,8 +8,8 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dimension from 'Dimensions';
 
-import routes, {isBusy} from '../common/route';
-import Color from './color';
+import routes, {isBusy} from './route';
+import Color from '../config/color';
 
 export default class Foot extends Component {
 	constructor(props) {

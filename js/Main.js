@@ -6,9 +6,9 @@ import {
 	Navigator
 } from 'react-native';
 
-import routes from './common/route';
-import history from './common/history';
-import tmpl from './common/tmpl';
+import routes from './filter/route';
+import history from './filter/history';
+import tmpl from './filter/tmpl';
 import BigPic from './common/BigPic';
 import Books from './Books';
 import Borrow from './Borrow';

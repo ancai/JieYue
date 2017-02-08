@@ -11,7 +11,7 @@ import routes from './route';
 import {
 	loginURL,
 	defaultPortrait,
-} from './env';
+} from '../config/env';
 
 export default function(callback) {
 	if (global.user) {

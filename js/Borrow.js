@@ -7,7 +7,7 @@ import {
 	Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import routes from './common/route';
+import routes from './filter/route';
 
 export default class Borrow extends Component {
 	constructor(props) {

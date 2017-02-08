@@ -6,7 +6,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-import routes, {isBusy} from './common/route';
+import routes, {isBusy} from './filter/route';
 
 export default class LoanOK extends Component {
 	constructor(props) {

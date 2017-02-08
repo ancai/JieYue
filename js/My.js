@@ -9,11 +9,12 @@ import {
 
 import {
 	bookImageURL
-} from './common/env';
+} from './config/env';
+import keys from './config/keys';
 import formatDate from './util/date';
 import listener from './util/listen';
-import routes from './common/route';
-import auth from './common/auth';
+import routes from './filter/route';
+import auth from './filter/auth';
 import BigPic from './common/BigPic';
 import TabBar from './common/TabBar';
 import Login from './Login';
@@ -49,7 +50,7 @@ export default class My extends Component {
 	}
 
 	componentDidMount() {
-		listener.add('logout', () => {
+		listener.add(keys.action.logout, () => {
 			this.state.user = null;
 		});
 	}

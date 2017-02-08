@@ -10,10 +10,10 @@ import {
 
 import {
 	bookImageURL
-} from './common/env';
+} from './config/env';
 
-import Head from './common/Head';
-import routes from './common/route';
+import Head from './filter/Head';
+import routes from './filter/route';
 import TabBar from './common/TabBar';
 import Catalog from './Catalog';
 import CmntList from './Cmnts';

@@ -6,7 +6,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-import {back} from './history';
+import {back} from '../filter/history';
 
 export default class BigPic extends Component {
 	constructor(props) {

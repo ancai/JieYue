@@ -5,7 +5,7 @@ import {
 	TouchableOpacity,
 } from 'react-native'
 
-import Color from './color';
+import Color from '../config/color';
 
 export default class Detail extends Component {
 	props: {

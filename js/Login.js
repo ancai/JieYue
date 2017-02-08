@@ -4,8 +4,8 @@ import {
 	DeviceEventEmitter
 } from 'react-native';
 
-import auth from './common/auth';
-import {loginURL} from './common/env';
+import auth from './filter/auth';
+import {loginURL} from './config/env';
 
 export default class Login extends Component {
 	props: {

@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import {
 	bookImageURL,
-} from './common/env';
+} from './config/env';
 import service from './store/service';
-import routes from './common/route';
-import back from './common/history';
-import auth from './common/auth';
+import routes from './filter/route';
+import back from './filter/history';
+import auth from './filter/auth';
 import uuid from './util/uuid';
 import decode from './util/base64';
 import Login from './Login';

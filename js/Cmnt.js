@@ -8,7 +8,7 @@ import {
 
 import uuid from './util/uuid';
 import listener from './util/listen';
-import routes from './common/route';
+import routes from './filter/route';
 import service from './store/service';
 import star from './common/star';
 

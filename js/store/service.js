@@ -1,7 +1,7 @@
 import {
 	serverURL,
 	table
-} from '../common/env';
+} from '../config/env';
 import get, {post} from './remote';
 
 export default {
