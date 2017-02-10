@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 import auth from './filter/auth';
-import {loginURL} from './config/env';
+import {LOGIN_URL} from './config/env';
 
 export default class Login extends Component {
 	props: {
@@ -18,7 +18,7 @@ export default class Login extends Component {
 
 	navChange(navState) {
 		let url = navState.url;
-		if (url === loginURL) {
+		if (url === LOGIN_URL) {
 			auth((user) => this.props.onLogin(user));
 		}
 	}
@@ -26,7 +26,7 @@ export default class Login extends Component {
 	render() {
 		return (
 			<WebView
-				source={{uri: loginURL + '?type=mail'}}
+				source={{uri: LOGIN_URL + '?type=mail'}}
 				javaScriptEnabled={true}
 				onNavigationStateChange={this.navChange.bind(this)}
 			/>

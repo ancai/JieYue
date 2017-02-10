@@ -7,7 +7,7 @@ import {
 	Image
 } from 'react-native';
 import {
-	bookImageURL,
+	BOOK_IMAGE_URL,
 } from './config/env';
 import service from './store/service';
 import routes from './filter/route';
@@ -138,7 +138,7 @@ export default class Loan extends Component {
 			return (
 				<View style={styles.container}>
 					<View style={styles.head}>
-						<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
+						<Image source={{uri: BOOK_IMAGE_URL + 's500x500_' + book.cover}} style = {styles.pic} />
 					</View>
 					<View style={styles.titleWrap}><Text style={styles.title}>{book.title}</Text></View>
 					<View style={styles.btns}>

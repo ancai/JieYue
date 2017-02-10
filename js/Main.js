@@ -3,7 +3,8 @@ import {
 	AppRegistry,
 	Text,
 	View,
-	Navigator
+	Navigator,
+	AlertIOS,
 } from 'react-native';
 
 import routes from './filter/route';
@@ -22,9 +23,12 @@ import Sets from './Sets';
 import Search from './Search';
 
 export default class Main extends Component {
-	static defaultProps = {
-		title: '图书借阅'
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			permission: null
+		};
+	}
 
 	configScene(route, routeStack) {
 		if (route.name === routes['BigPic'].name) {

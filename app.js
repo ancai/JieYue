@@ -1,4 +1,7 @@
-'use strict';
+import {
+	AppRegistry,
+} from 'react-native';
+
 import Main from './js/Main';
 
 //Android 和 IOS 应用的入口

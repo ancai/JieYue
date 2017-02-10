@@ -9,15 +9,15 @@ import CookieManager from 'react-native-cookies';
 
 import routes from './route';
 import {
-	loginURL,
-	defaultPortrait,
+	LOGIN_URL,
+	DEFAULT_PORTRAIT,
 } from '../config/env';
 
 export default function(callback) {
 	if (global.user) {
 		callback(global.user);
 	} else {
-		CookieManager.get(loginURL, (err, res) => {
+		CookieManager.get(LOGIN_URL, (err, res) => {
 			if (res.NTES_CMT_USER_INFO) {
 				let user = getUserData(res.NTES_CMT_USER_INFO);
 				global.user = user;
@@ -34,7 +34,7 @@ function getUserData(userCookie) {
 	return {
 		userId: userInfo[0],
 		nickname: userInfo[1],
-		avatar: userInfo[2] || defaultPortrait,
+		avatar: userInfo[2] || DEFAULT_PORTRAIT,
 		username: userInfo[4],
 	};
 }

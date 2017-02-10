@@ -8,7 +8,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 
-import {bookImageURL} from '../config/env';
+import {BOOK_IMAGE_URL} from '../config/env';
 import routes from '../filter/route';
 
 export default class BookList extends Component {
@@ -26,7 +26,7 @@ export default class BookList extends Component {
 		return (
 			<TouchableOpacity onPress={() => this.showDetail(book)}>
 				<View style={styles.row}>
-					<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style={styles.pic}/>
+					<Image source={{uri: BOOK_IMAGE_URL + 's500x500_' + book.cover}} style={styles.pic}/>
 					<Text style={styles.bookTitle}>{book.title}</Text>
 				</View>
 			</TouchableOpacity>

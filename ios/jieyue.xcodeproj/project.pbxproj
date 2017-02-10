@@ -25,6 +25,7 @@
 		295302F01E496CB9007E897A /* libRNCookieManagerIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 295302EF1E496B9F007E897A /* libRNCookieManagerIOS.a */; };
 		295302F71E496F85007E897A /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 295302F61E496F7C007E897A /* libRCTCamera.a */; };
 		295302FE1E4974F7007E897A /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 295302FD1E4974DA007E897A /* libRNVectorIcons.a */; };
+		296054211E4B0F7B00FBBAE2 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2960540D1E4B0F2500FBBAE2 /* libRCTPushNotification.a */; };
 		29AC1C091E497CC000C0052D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29AC1BFF1E497CC000C0052D /* Entypo.ttf */; };
 		29AC1C0A1E497CC000C0052D /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29AC1C001E497CC000C0052D /* EvilIcons.ttf */; };
 		29AC1C0B1E497CC000C0052D /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29AC1C011E497CC000C0052D /* FontAwesome.ttf */; };
@@ -135,6 +136,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
+		};
+		2960540C1E4B0F2500FBBAE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 296053FC1E4B0F2400FBBAE2 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		2960540E1E4B0F2500FBBAE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 296053FC1E4B0F2400FBBAE2 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -285,6 +300,7 @@
 		295302EA1E496B9E007E897A /* RNCookieManagerIOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCookieManagerIOS.xcodeproj; path = "../node_modules/react-native-cookies/RNCookieManagerIOS.xcodeproj"; sourceTree = "<group>"; };
 		295302F11E496F7B007E897A /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		295302F81E4974DA007E897A /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		296053FC1E4B0F2400FBBAE2 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		29AC1BC71E497B8B00C0052D /* jieyue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jieyue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AC1BC81E497B8B00C0052D /* jieyueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jieyueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29AC1BC91E497B8B00C0052D /* jieyue-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "jieyue-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				296054211E4B0F7B00FBBAE2 /* libRCTPushNotification.a in Frameworks */,
 				295302FE1E4974F7007E897A /* libRNVectorIcons.a in Frameworks */,
 				295302F71E496F85007E897A /* libRCTCamera.a in Frameworks */,
 				295302F01E496CB9007E897A /* libRNCookieManagerIOS.a in Frameworks */,
@@ -489,6 +506,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		296053FD1E4B0F2400FBBAE2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2960540D1E4B0F2500FBBAE2 /* libRCTPushNotification.a */,
+				2960540F1E4B0F2500FBBAE2 /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		29AC1BFE1E497CC000C0052D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +554,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				296053FC1E4B0F2400FBBAE2 /* RCTPushNotification.xcodeproj */,
 				295302F81E4974DA007E897A /* RNVectorIcons.xcodeproj */,
 				295302F11E496F7B007E897A /* RCTCamera.xcodeproj */,
 				295302EA1E496B9E007E897A /* RNCookieManagerIOS.xcodeproj */,
@@ -715,6 +742,10 @@
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
+					ProductGroup = 296053FD1E4B0F2400FBBAE2 /* Products */;
+					ProjectRef = 296053FC1E4B0F2400FBBAE2 /* RCTPushNotification.xcodeproj */;
+				},
+				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
 					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
 				},
@@ -829,6 +860,20 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = 295302FC1E4974DA007E897A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2960540D1E4B0F2500FBBAE2 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = 2960540C1E4B0F2500FBBAE2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2960540F1E4B0F2500FBBAE2 /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = 2960540E1E4B0F2500FBBAE2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
@@ -1296,6 +1341,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1331,6 +1378,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;

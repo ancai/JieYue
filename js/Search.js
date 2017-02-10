@@ -7,7 +7,7 @@ import {
 	ScrollView,
 } from 'react-native';
 
-import {bookImageURL} from './config/env';
+import {BOOK_IMAGE_URL} from './config/env';
 import service from './store/service';
 import routes from './filter/route';
 import BookList from './common/BookList';

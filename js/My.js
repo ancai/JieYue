@@ -4,13 +4,17 @@ import {
 	Text,
 	TouchableOpacity,
 	Image,
-	ListView
+	ListView,
+	PushNotificationIOS,
+	Alert,
 } from 'react-native';
 
 import {
-	bookImageURL
+	BOOK_IMAGE_URL,
+	LOAN_EXPIRES
 } from './config/env';
 import keys from './config/keys';
+import get from './store/local';
 import formatDate from './util/date';
 import listener from './util/listen';
 import routes from './filter/route';
@@ -26,6 +30,7 @@ export default class My extends Component {
 		this.state = {
 			user: global.user,
 			tab: 0,
+			arryIng: [],
 			dataSourceIng: new ListView.DataSource({
 				rowHasChanged: (r1, r2) => r1 !== r2
 			}),
@@ -53,10 +58,33 @@ export default class My extends Component {
 		listener.add(keys.action.logout, () => {
 			this.state.user = null;
 		});
+		listener.add(keys.switchs.push, this.outOfDateNotic.bind(this));
+	}
+
+	componentWillUnmount() {
+		PushNotificationIOS.setApplicationIconBadgeNumber(0);
 	}
 
 	onLogin(user) {
 		this.setState(user);
+	}
+
+	//到期还书提醒
+	outOfDateNotic() {
+		let total = 0;
+		get(keys.switchs.push, val => {
+			if (parseInt(val) && this.state.totalIng > 0) {
+				this.state.arryIng.forEach(item => {
+					if (Date.now() > parseInt(item.time)+LOAN_EXPIRES) {
+						total++;
+					}
+				});
+				if (total) {
+					Alert.alert('还书日期到了', `您有${total}本书应该归还了哦！`,);
+				}
+				PushNotificationIOS.setApplicationIconBadgeNumber(total);
+			}
+		});
 	}
 
 	//查询 (未归还的)借阅书籍的 信息
@@ -64,10 +92,12 @@ export default class My extends Component {
 		if (user) {
 			service.getLoanByUser(user, '0', arry => {
 				this.setState({
+					arryIng: arry,
 					dataSourceIng: this.state.dataSourceIng.cloneWithRows(arry),
 					totalIng: arry.length,
 					loadedIng: true
 				});
+				this.outOfDateNotic();
 			});
 			service.getLoanByUser(user, '1', arry => {
 				this.setState({
@@ -90,7 +120,7 @@ export default class My extends Component {
 	showBigPic(loan) {
 		this.props.navigator.push(
 			Object.assign(routes['BigPic'], {
-				picUri: bookImageURL + 's800x800_' + loan.cover
+				picUri: BOOK_IMAGE_URL + 's800x800_' + loan.cover
 			})
 		);
 	}
@@ -108,14 +138,14 @@ export default class My extends Component {
 		return (
 			<View style={styles.row}>
 				<TouchableOpacity style={styles.rowL} onPress={() => this.showBigPic(loan)} >
-					<Image source={{uri: bookImageURL + 's500x500_' + loan.cover}} style={styles.bookImg}/>
+					<Image source={{uri: BOOK_IMAGE_URL + 's500x500_' + loan.cover}} style={styles.bookImg}/>
 				</TouchableOpacity>
 				<View style={styles.rowR}>
 					<View style={styles.rItem}>
 						<Text style={styles.rowTxt}>借出时间：{formatDate(loan.time)}</Text>
 					</View>
 					<View style={styles.rItem}>
-						<Text style={styles.rowTxt}>应还时间：{formatDate(3*7*24*60*60*1000 + parseInt(loan.time))}</Text>
+						<Text style={styles.rowTxt}>应还时间：{formatDate(LOAN_EXPIRES + parseInt(loan.time))}</Text>
 					</View>
 					<View style={styles.rBtnItem}>
 						<TouchableOpacity style={styles.rBtn} onPress={() => this.toComment(loan)}>
@@ -134,14 +164,14 @@ export default class My extends Component {
 		return (
 			<View style={styles.row}>
 				<TouchableOpacity style={styles.rowL} onPress={() => this.showBigPic(loan)} >
-					<Image source={{uri: bookImageURL + 's500x500_' + loan.cover}} style={styles.bookImg}/>
+					<Image source={{uri: BOOK_IMAGE_URL + 's500x500_' + loan.cover}} style={styles.bookImg}/>
 				</TouchableOpacity>
 				<View style={styles.rowR}>
 					<View style={styles.rItem}>
 						<Text style={styles.rowTxt}>借出时间：{formatDate(loan.time)}</Text>
 					</View>
 					<View style={styles.rItem}>
-						<Text style={styles.rowTxt}>应还时间：{formatDate(3*7*24*60*60*1000 + parseInt(loan.time))}</Text>
+						<Text style={styles.rowTxt}>应还时间：{formatDate( + parseInt(loan.time))}</Text>
 					</View>
 					<View style={styles.rBtnItem}>
 						<TouchableOpacity style={styles.rBtn} onPress={() => this.toComment(loan)}>

@@ -1,6 +1,6 @@
 import {
-	serverURL,
-	table
+	SERVER_URL,
+	TABLE
 } from '../config/env';
 import get, {post} from './remote';
 
@@ -8,7 +8,7 @@ export default {
 	//获得 图书列表(支持按 书名 模糊查询)
 	getBooks(callback) {
 		let args = arguments,
-			url = `${serverURL}/list?${table.book}`,
+			url = `${SERVER_URL}/list?${TABLE.book}`,
 			bookName,
 			books;
 
@@ -26,7 +26,7 @@ export default {
 
 	//获得 某本书详情
 	getBook(bookId, callback) {
-		let url = `${serverURL}?_id=${bookId}&${table.book}`,
+		let url = `${SERVER_URL}?_id=${bookId}&${TABLE.book}`,
 			book;
 		get(url, rjson => {
 			book = rjson.result;
@@ -36,7 +36,7 @@ export default {
 
 	//获得 图书 目录
 	getToc(bookId, callback) {
-		let url = `${serverURL}?_id=${bookId}&${table.toc}`,
+		let url = `${SERVER_URL}?_id=${bookId}&${TABLE.toc}`,
 			toc;
 		get(url, rjson => {
 			toc = rjson.result.toc;
@@ -46,7 +46,7 @@ export default {
 
 	// 根据图书ID 获得副本信息
 	getIssues(bookId, callback) {
-		let url = `${serverURL}?${table.issue}&_id=${bookId}`,
+		let url = `${SERVER_URL}?${TABLE.issue}&_id=${bookId}`,
 			issueList;
 
 		get(url, rjson => {
@@ -59,7 +59,7 @@ export default {
 
 	//更新副本表的记录
 	updateIssues(bookId, issueList, callback) {
-		let url = `${serverURL}?${table.issue}&_id=${bookId}`;
+		let url = `${SERVER_URL}?${TABLE.issue}&_id=${bookId}`;
 		post(url, {list: issueList}, rjson => {
 			if (rjson.success) {
 				callback && callback();
@@ -69,7 +69,7 @@ export default {
 
 	//保存 借阅记录
 	saveLoan(loan, callback) {
-		let url = `${serverURL}?${table.loan}&_id=${loan._id}`;
+		let url = `${SERVER_URL}?${TABLE.loan}&_id=${loan._id}`;
 		post(url, loan, rjson => {
 			if (rjson.success) {
 				callback();
@@ -79,7 +79,7 @@ export default {
 
 	//获得 某本书的 借阅记录
 	getLoan(bookId, issueId, isBack, callback) {
-		let url = `${serverURL}/list?${table.loan}&bookId=${bookId}&issueId=${issueId}&isBack=${isBack}`;
+		let url = `${SERVER_URL}/list?${TABLE.loan}&bookId=${bookId}&issueId=${issueId}&isBack=${isBack}`;
 		get(url, rjson => {
 			let arry = rjson.result;
 			callback(arry);
@@ -88,7 +88,7 @@ export default {
 
 	//获得 某个用户的 借阅记录
 	getLoanByUser(user, isBack, callback) {
-		let url = `${serverURL}/list?${table.loan}&user=/${user}/&isBack=${isBack}`;
+		let url = `${SERVER_URL}/list?${TABLE.loan}&user=/${user}/&isBack=${isBack}`;
 		get(url, rjson => {
 			let arry = rjson.result;
 			callback(arry);
@@ -97,7 +97,7 @@ export default {
 
 	//获得 图书 评论
 	getComments(bookId, callback) {
-		let url = `${serverURL}/list?${table.comments}&bookId=${bookId}`,
+		let url = `${SERVER_URL}/list?${TABLE.comments}&bookId=${bookId}`,
 			comments;
 		get(url, rjson => {
 			comments = rjson.result;
@@ -107,7 +107,7 @@ export default {
 
 	//保存 发表的评论
 	saveComment(cmnt, callback) {
-		let url = `${serverURL}?${table.comments}&_id=${cmnt._id}`;
+		let url = `${SERVER_URL}?${TABLE.comments}&_id=${cmnt._id}`;
 		post(url, cmnt, rjson => {
 			if (rjson.success) {
 				callback();

@@ -26,10 +26,14 @@ const TABLE = {
 	comments: 'path=developer.163.com/f2e/library/comments'
 };
 
+//借阅 期限(3周)
+const LOAN_EXPIRES = 3*7*24*60*60*1000;
+
 export {
-	SERVER_URL as serverURL,
-	BOOK_IMAGE_URL as bookImageURL,
-	LOGIN_URL as loginURL,
-	DEFAULT_PORTRAIT as defaultPortrait,
-	TABLE as table
+	SERVER_URL,
+	BOOK_IMAGE_URL,
+	LOGIN_URL,
+	DEFAULT_PORTRAIT,
+	TABLE,
+	LOAN_EXPIRES
 };

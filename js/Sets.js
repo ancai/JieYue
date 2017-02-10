@@ -6,8 +6,10 @@ import {
 	Text,
 	Image,
 	Switch,
-	TouchableOpacity
+	TouchableOpacity,
+	PushNotificationIOS,
 } from 'react-native';
+import Platform from 'Platform';
 import Dimension from 'Dimensions';
 import CookieManager from 'react-native-cookies';
 
@@ -22,7 +24,8 @@ export default class Sets extends Component {
 		super(props);
 		this.state = {
 			user: global.user,
-			[keys.switchs.display]: false //首屏图文展示 开关
+			[keys.switchs.display]: false, //首屏图文展示 开关
+			[keys.switchs.push]: false, //到期提醒
 		};
 	}
 
@@ -35,12 +38,30 @@ export default class Sets extends Component {
 		get(keys.switchs.display, val => {
 			this.setState({[keys.switchs.display]: !!parseInt(val)});
 		});
+		get(keys.switchs.push, val => {
+			this.setState({[keys.switchs.push]: !!parseInt(val)});
+		});
 	}
 
 	setDisplay(val) {
 		set(keys.switchs.display, val ? '1' : '0');
 		this.setState({[keys.switchs.display]: val});
 		listener.emit(keys.action.display, val);
+	}
+
+	setPush(val) {
+		set(keys.switchs.push, val ? '1' : '0');
+		this.setState({[keys.switchs.push]: val});
+		if (val && Platform.OS === 'ios') {
+			PushNotificationIOS.checkPermissions(permissions => {
+				if (!(permissions && permissions.badge)) {
+					PushNotificationIOS.requestPermissions();
+				}
+			});
+		}
+		if (val) {
+			listener.emit(keys.switchs.push);
+		}
 	}
 
 	logout() {
@@ -81,6 +102,16 @@ export default class Sets extends Component {
 					<View style={[styles.switchCol, {alignItems: 'flex-end'}]}>
 						<Switch value={this.state[keys.switchs.display]}
 							onValueChange={this.setDisplay.bind(this)}
+							style={styles.switchWidget} />
+					</View>
+				</View>
+				<View style={styles.switchBar}>
+					<View style={styles.switchCol}>
+						<Text style={styles.switchTxt}>到期还书提醒</Text>
+					</View>
+					<View style={[styles.switchCol, {alignItems: 'flex-end'}]}>
+						<Switch value={this.state[keys.switchs.push]}
+							onValueChange={this.setPush.bind(this)}
 							style={styles.switchWidget} />
 					</View>
 				</View>

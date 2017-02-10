@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 
 import Detail from '../Detail';
-import {serverURL, bookImageURL, table} from '../config/env';
+import {
+	SERVER_URL,
+	BOOK_IMAGE_URL
+} from '../config/env';
 import routes from '../filter/route';
 
 export default class BookGrid extends Component {
@@ -24,7 +27,7 @@ export default class BookGrid extends Component {
 				onPress={() => this.showDetail(book)}
 				onLongPress={() => this.showBigPic(book)}>
 				<View style={styles.row}>
-					<Image source={{uri: bookImageURL + 's500x500_' + book.cover}} style = {styles.pic} />
+					<Image source={{uri: BOOK_IMAGE_URL + 's500x500_' + book.cover}} style = {styles.pic} />
 				</View>
 			</TouchableOpacity>
 		);
@@ -38,7 +41,7 @@ export default class BookGrid extends Component {
 
 	showBigPic(book) {
 		this.props.navigator.push(
-			Object.assign(routes['BigPic'], {picUri: bookImageURL + 's800x800_' + book.cover})
+			Object.assign(routes['BigPic'], {picUri: BOOK_IMAGE_URL + 's800x800_' + book.cover})
 		);
 	}
 

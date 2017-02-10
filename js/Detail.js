@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import {
-	bookImageURL
+	BOOK_IMAGE_URL
 } from './config/env';
 
 import Head from './filter/Head';
@@ -43,8 +43,8 @@ export default class Detail extends Component {
 		return (
 			<View style={styles.head}>
 				<View style={styles.headCol}>
-					<TouchableOpacity onPress={() => this.props.navigator.push(Object.assign(routes['BigPic'], {picUri: bookImageURL + 's800x800_' + book.cover}))}>
-						<Image source={{uri: bookImageURL + 's800x800_' + book.cover}} style = {styles.pic} />
+					<TouchableOpacity onPress={() => this.props.navigator.push(Object.assign(routes['BigPic'], {picUri: BOOK_IMAGE_URL + 's800x800_' + book.cover}))}>
+						<Image source={{uri: BOOK_IMAGE_URL + 's800x800_' + book.cover}} style = {styles.pic} />
 					</TouchableOpacity>
 				</View>
 				<View style={styles.headCol}>
