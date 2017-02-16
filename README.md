@@ -12,3 +12,5 @@
 读取Cookie，使用[react-native-cookies](https://github.com/joeferraro/react-native-cookies)
 
 字体图标，使用[react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
+
+Code-Push 更新APP，使用[react-native-code-push](https://github.com/Microsoft/react-native-code-push)
