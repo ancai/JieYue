@@ -12,6 +12,7 @@ import {
 import Platform from 'Platform';
 import Dimension from 'Dimensions';
 import CookieManager from 'react-native-cookies';
+import codePush from 'react-native-code-push';
 
 import keys from './config/keys';
 import {back} from './filter/history';
@@ -60,7 +61,7 @@ export default class Sets extends Component {
 			});
 		}
 		if (val) {
-			listener.emit(keys.switchs.push);
+			listener.emit(keys.action.expires);
 		}
 	}
 
@@ -88,13 +89,20 @@ export default class Sets extends Component {
 		}
 	}
 
+	checkUpdate() {
+		codePush.sync({
+			updateDialog: false,
+			installMode: codePush.InstallMode.IMMEDIATE
+		});
+	}
+
 	render() {
 		return (
 			<View style={styles.wrap}>
-				<View style={styles.version}>
+				<TouchableOpacity style={styles.version} onPress={this.checkUpdate.bind(this)}>
 					<Image style={styles.logo} source={require('./img/jieyue_120.png')} />
 					<Text style={styles.vname}>图书借阅V1.3.1</Text>
-				</View>
+				</TouchableOpacity>
 				<View style={styles.switchBar}>
 					<View style={styles.switchCol}>
 						<Text style={styles.switchTxt}>首屏图文展示</Text>

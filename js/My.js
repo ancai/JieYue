@@ -58,7 +58,7 @@ export default class My extends Component {
 		listener.add(keys.action.logout, () => {
 			this.state.user = null;
 		});
-		listener.add(keys.switchs.push, this.outOfDateNotic.bind(this));
+		listener.add(keys.action.expires, this.outOfDateNotic.bind(this));
 	}
 
 	componentWillUnmount() {

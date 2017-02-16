@@ -7,7 +7,8 @@ const KEYS = {
 
 	action: {
 		logout: 'LOGOUT', //退出动作
-		display: 'DISPLAY_CHANGE'
+		display: 'DISPLAY_CHANGE',
+		expires: 'CHECK_EXPIRES', //检查借阅期限
 	}
 
 };

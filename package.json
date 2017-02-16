@@ -11,6 +11,7 @@
     "react": "~15.4.0-rc.4",
     "react-native": "0.41.1",
     "react-native-camera": "^0.6.0",
+    "react-native-code-push": "^1.17.0-beta",
     "react-native-cookies": "^2.0.0",
     "react-native-vector-icons": "^4.0.0"
   },
