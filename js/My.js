@@ -62,7 +62,9 @@ export default class My extends Component {
 	}
 
 	componentWillUnmount() {
-		PushNotificationIOS.setApplicationIconBadgeNumber(0);
+		if (Platform.OS === 'ios') {
+			PushNotificationIOS.setApplicationIconBadgeNumber(0);
+		}
 	}
 
 	onLogin(user) {

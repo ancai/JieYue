@@ -1,5 +1,8 @@
 package com.jieyue;
 
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.psykar.cookiemanager.CookieManagerPackage;
+import com.microsoft.codepush.react.CodePush;
 import android.app.Application;
 import android.util.Log;
 
@@ -21,10 +24,21 @@ public class MainApplication extends Application implements ReactApplication {
       return BuildConfig.DEBUG;
     }
 
+    // 2. Override the getJSBundleFile method in order to let
+    // the CodePush runtime determine where to get the JS
+    // bundle location from on each app start
+    @Override
+    protected String getJSBundleFile() {
+        return CodePush.getJSBundleFile();
+    }
+
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+          new RCTCameraPackage(),
+          new CookieManagerPackage(),
+          new CodePush(BuildConfig.CODEPUSH_KEY, MainApplication.this, BuildConfig.DEBUG)
       );
     }
   };

@@ -94,8 +94,6 @@ export default class Search extends Component {
 
 const styles = {
 	searchBox: {
-		borderBottomWidth: 1,
-		borderBottomColor: 'red',
 		marginTop: 100,
 		marginLeft: 20,
 		marginRight: 20,
