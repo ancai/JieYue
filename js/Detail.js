@@ -15,8 +15,8 @@ import {
 import Head from './filter/Head';
 import routes from './filter/route';
 import TabBar from './common/TabBar';
-import Catalog from './Catalog';
-import CmntList from './Cmnts';
+import Catalog from './common/Catalog';
+import CmntList from './common/Cmnts';
 import service from './store/service';
 
 export default class Detail extends Component {
@@ -120,7 +120,6 @@ const styles = {
 	headCol: {
 		flex: 1,
 		height: 235,
-		paddingRight: 5,
 		paddingTop: 5,
 	},
 	title: {
@@ -129,9 +128,7 @@ const styles = {
 		lineHeight: 30,
 	},
 	pic: {
-		width: 200,
-		height: 220,
-		marginTop: 0,
+		height: 210,
 	},
 	intro: {
 		margin: 10,

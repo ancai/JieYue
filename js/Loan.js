@@ -160,7 +160,7 @@ export default class Loan extends Component {
 	};
 }
 const styles = {
-	container: {flex: 1, paddingTop: 50},
+	container: {flex: 1, paddingTop: 10},
 	center: {
 		justifyContent: 'center',
 		alignItems: 'center'
@@ -179,8 +179,8 @@ const styles = {
 		margin: 5,
 	},
 	pic: {
-		width: 400,
-		height: 400,
+		width: 380,
+		height: 380,
 		margin: 5,
 	},
 	btns: {

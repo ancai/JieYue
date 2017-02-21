@@ -41,23 +41,14 @@ export default class Search extends Component {
 		);
 	}
 
-	renderInit() {
+	renderTxtBox() {
 		return (
 			<TextInput style={styles.searchBox}
 				placeholder='请输入书名'
 				onChangeText = {query => this.setState({query})}
-				onBlur = {this.findBooks.bind(this)}
-				returnKeyType='search'/>
-		);
-	}
-
-	renderQrySch() {
-		return (
-			<TextInput style={[styles.searchBox, styles.schBoxTop]}
-				placeholder='请输入书名'
-				onChangeText = {query => this.setState({query})}
-				onBlur = {this.findBooks.bind(this)}
+				onSubmitEditing = {this.findBooks.bind(this)}
 				returnKeyType='search'
+				underlineColorAndroid='transparent'
 				defaultValue = {this.state.query}/>
 		);
 	}
@@ -66,16 +57,16 @@ export default class Search extends Component {
 		if (this.state.size) {
 			return (
 				<ScrollView>
-					{this.renderQrySch()}
+					{this.renderTxtBox()}
 					<BookList navigator={this.props.navigator} dataSource={this.state.dataSource} />
 				</ScrollView>
 			);
 		} else {
 			return (
 				<View>
-					{this.renderQrySch()}
+					{this.renderTxtBox()}
 					<View style={styles.emptyTip}>
-						<Text style={styles.emptyTxt}>没找到您要的书哦，换个关键字试试吧。</Text>
+						<Text style={styles.emptyTxt}>没找到您要的书哦，换个关键词试试吧。</Text>
 					</View>
 				</View>
 			);
@@ -86,7 +77,7 @@ export default class Search extends Component {
 		if (this.state.loaded) {
 			return this.renderList();
 		} else {
-			return this.renderInit();
+			return this.renderTxtBox();
 		}
 	}
 
@@ -94,7 +85,7 @@ export default class Search extends Component {
 
 const styles = {
 	searchBox: {
-		marginTop: 100,
+		marginTop: 15,
 		marginLeft: 20,
 		marginRight: 20,
 		paddingLeft: 15,
@@ -103,9 +94,6 @@ const styles = {
 		borderColor: '#d1d1d1',
 		borderRadius: 5,
 		color: '#666'
-	},
-	schBoxTop: {
-		marginTop: 15,
 	},
 	cancelTxt: {
 		fontSize: 18,

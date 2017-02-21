@@ -53,23 +53,23 @@ const styles = {
 		paddingBottom: 1,
 	},
 	row: {
+		flex: 1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		height: 140,
+		height: 205,
 		alignItems: 'center',
 		paddingLeft: 20,
 		borderBottomWidth: 1,
 		borderBottomColor: '#d1d1d1',
-		marginTop: 10,
 		backgroundColor: '#fffffd'
 	},
 	pic: {
-		width: 120,
-		height: 120,
+		height: 190,
+		flex: 1,
 	},
 	bookTitle: {
 		color: '#666',
-		width: 245,
+		flex: 1,
 		marginLeft: 15,
 		fontSize: 20
 	},

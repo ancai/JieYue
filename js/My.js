@@ -8,7 +8,7 @@ import {
 	PushNotificationIOS,
 	Alert,
 } from 'react-native';
-
+import Platform from 'Platform';
 import {
 	BOOK_IMAGE_URL,
 	LOAN_EXPIRES
@@ -116,6 +116,7 @@ export default class My extends Component {
 		loan.isBack = '1';
 		service.saveLoan(loan, () => {
 			this.getLoanInfo(global.user);
+			Alert.alert('完成还书', `请把图书放到书架上吧`,);
 		});
 	}
 

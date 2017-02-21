@@ -64,6 +64,7 @@ export default class Comment extends Component {
 					<TextInput
 						style={styles.titleInpt}
 						placeholder='标题'
+						underlineColorAndroid='transparent'
 						onChangeText={(title) => this.setState({title})}
 					/>
 				</View>
@@ -72,6 +73,7 @@ export default class Comment extends Component {
 						style={styles.cmntInpt}
 						placeholder='评论'
 						multiline={true}
+						underlineColorAndroid='transparent'
 						onChangeText={(content) => this.setState({content})}
 					/>
 				</View>

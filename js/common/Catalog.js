@@ -3,7 +3,7 @@ import {
 	WebView
 } from 'react-native';
 
-import service from './store/service';
+import service from '../store/service';
 
 //图书目录
 export default class extends Component {

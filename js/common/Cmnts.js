@@ -5,8 +5,8 @@ import {
 	ListView
 } from 'react-native';
 
-import formatDate from './util/date';
-import star from './common/star';
+import formatDate from '../util/date';
+import star from './star';
 
 export default class CmntList extends Component {
 	constructor(props) {
