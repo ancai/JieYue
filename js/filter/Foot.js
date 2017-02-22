@@ -19,11 +19,7 @@ export default class Foot extends Component {
 
 	changeTab(route) { //切换页面
 		let navigator = this.props.navigator;
-		if (isBusy(navigator, route)) {
-			navigator.jumpTo(route);
-		} else {
-			navigator.push(route);
-		}
+		navigator.replace(route);
 	}
 
 	render() {
