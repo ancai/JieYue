@@ -252,7 +252,8 @@ export default class My extends Component {
 	}
 
 	render() {
-		return this.state.user ? this.renderItem(user) : <Login onLogin={this.onLogin.bind(this)}/>;
+		let user = this.state.user || global.user;
+		return user ? this.renderItem(user) : <Login onLogin={this.onLogin.bind(this)}/>;
 	}
 }
 const styles = {
