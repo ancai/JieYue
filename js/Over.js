@@ -38,9 +38,6 @@ export default class LoanOK extends Component {
 						<TouchableOpacity onPress={() => {this.props.navigator.popToRoute(routes['Borrow'])}}>
 							<Text style={styles.btn}>再借一本</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => {this.props.navigator.popToTop()}}>
-							<Text style={styles.btn}>去往首页</Text>
-						</TouchableOpacity>
 					</View>
 				</View>
 			</View>

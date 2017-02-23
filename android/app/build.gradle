@@ -76,7 +76,7 @@ apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
  *   - An APK that only works on x86 devices
- * The advantage is the size of the APK is reduced by about 4MB.
+ * The advantage is th1 size of the APK is reduced by about 4MB.
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
@@ -96,7 +96,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.1.0"
+        versionName "1.1.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
