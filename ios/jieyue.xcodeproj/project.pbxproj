@@ -1240,6 +1240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "m1qNiRX_AUFA-S5Ag3nmXQcgC3geEyhntJA_M";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44E83FSR38;
 				INFOPLIST_FILE = jieyue/Info.plist;
