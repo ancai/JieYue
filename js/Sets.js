@@ -101,7 +101,7 @@ export default class Sets extends Component {
 			<View style={styles.wrap}>
 				<TouchableOpacity style={styles.version} onPress={this.checkUpdate.bind(this)}>
 					<Image style={styles.logo} source={require('./img/jieyue_120.png')} />
-					<Text style={styles.vname}>图书借阅V1.1.3</Text>
+					<Text style={styles.vname}>图书借阅V1.1.4</Text>
 				</TouchableOpacity>
 				<View style={styles.switchBar}>
 					<View style={styles.switchCol}>

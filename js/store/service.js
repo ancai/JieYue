@@ -88,7 +88,7 @@ export default {
 
 	//获得 某个用户的 借阅记录
 	getLoanByUser(user, isBack, callback) {
-		let url = `${SERVER_URL}/list?${TABLE.loan}&user=/${user}/&isBack=${isBack}`;
+		let url = `${SERVER_URL}/list?${TABLE.loan}&user=/${user.username}/&isBack=${isBack}`;
 		get(url, rjson => {
 			let arry = rjson.result;
 			callback(arry);
